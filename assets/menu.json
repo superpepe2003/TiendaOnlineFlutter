@@ -1,0 +1,27 @@
+[        
+    {
+        "icon": "59322",
+        "name": "Home",
+        "redirectTo": "home"
+    },
+    {
+        "icon": "59955",
+        "name": "Tiendas",
+        "redirectTo": "tiendas"
+    },
+    {
+        "icon": "59441",
+        "name": "Ofertas",
+        "redirectTo": ""
+    },
+    {
+        "icon": "0xe567",
+        "name": "Extras",
+        "redirectTo": ""
+    },
+    {
+        "icon": "62619",
+        "name": "Mi Tienda",
+        "redirectTo": "mitienda"
+    }
+]
