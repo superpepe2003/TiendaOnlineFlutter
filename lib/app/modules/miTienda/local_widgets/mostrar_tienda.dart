@@ -26,25 +26,26 @@ class MostrarTienda extends GetView<MiTiendaController> {
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
         actions: [
-          Obx(() => 
-            ( controller.hayTienda )
-            ? IconButton(
-                icon: FaIcon(FontAwesomeIcons.productHunt),
-                onPressed: () {
-                  Get.toNamed(AppRoutes.MIPRODUCTOS, arguments: controller.miTienda.id);
-                },
-              )
-            : Container()
-          )
+          Obx(() => (controller.hayTienda)
+              ? IconButton(
+                  icon: FaIcon(FontAwesomeIcons.productHunt),
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.MIPRODUCTOS,
+                        arguments: controller.miTienda.id);
+                  },
+                )
+              : Container())
         ],
       ),
       drawer: MenuPrincipal(),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        //EMPECE
         child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
           slivers: [
             Obx(() => (controller.hayTienda)
-                ? SliverToBoxAdapter( child: FotoTienda())
+                ? SliverToBoxAdapter(child: FotoTienda())
                 : SliverToBoxAdapter(
                     child: Container(
                       height: _responsive.hp(30),
@@ -53,17 +54,16 @@ class MostrarTienda extends GetView<MiTiendaController> {
             SliverToBoxAdapter(
               child: Obx(
                 () => TextFormField(
-                  initialValue: controller.miTienda.nombre,
-                  decoration: InputDecoration(
-                      hintText: 'Nombre Tienda',
-                      errorText: controller.errorNombre,
-                      labelText: 'Nombre',
-                      icon: Icon(Icons.storefront)),
-                  onChanged: (value) {
-                    controller.miTienda.nombre = value;
-                    controller.nombre= value;
-                  }
-                ),
+                    initialValue: controller.miTienda.nombre,
+                    decoration: InputDecoration(
+                        hintText: 'Nombre Tienda',
+                        errorText: controller.errorNombre,
+                        labelText: 'Nombre',
+                        icon: Icon(Icons.storefront)),
+                    onChanged: (value) {
+                      controller.miTienda.nombre = value;
+                      controller.nombre = value;
+                    }),
               ),
             ),
             SliverToBoxAdapter(
@@ -81,17 +81,16 @@ class MostrarTienda extends GetView<MiTiendaController> {
             SliverToBoxAdapter(
               child: Obx(
                 () => TextFormField(
-                  initialValue: controller.miTienda.telefono,
-                  decoration: InputDecoration(
-                      hintText: 'Telefono de la Tienda',
-                      errorText: controller.errorTelefono,
-                      labelText: 'Telefono',
-                      icon: Icon(Icons.phone)),
-                  onChanged: (value) { 
-                    controller.miTienda.telefono = value;
-                    controller.telefono = value;
-                  }
-                ),
+                    initialValue: controller.miTienda.telefono,
+                    decoration: InputDecoration(
+                        hintText: 'Telefono de la Tienda',
+                        errorText: controller.errorTelefono,
+                        labelText: 'Telefono',
+                        icon: Icon(Icons.phone)),
+                    onChanged: (value) {
+                      controller.miTienda.telefono = value;
+                      controller.telefono = value;
+                    }),
               ),
             ),
             SliverToBoxAdapter(child: SizedBox(height: 20)),

@@ -42,7 +42,7 @@ class MovieHorizontal extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(20.0),
             child: FadeInImage(
-              placeholder: AssetImage('assets/no-image.jpg'),
+              placeholder: AssetImage('assets/no-image.png'),
               image: AssetImage(banner.url),
               fit: BoxFit.cover,
               height: 160.0,
@@ -65,7 +65,7 @@ class MovieHorizontal extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: FadeInImage(
-                placeholder: AssetImage('assets/no-image.jpg'),
+                placeholder: AssetImage('assets/no-image.png'),
                 image: AssetImage(pelicula.url),
                 fit: BoxFit.cover,
                 height: 160.0,

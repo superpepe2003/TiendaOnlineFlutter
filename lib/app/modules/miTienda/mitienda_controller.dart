@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -8,9 +6,9 @@ import 'package:tienda_online_flutter/app/data/model/tienda_model.dart';
 import 'package:tienda_online_flutter/app/data/repository/categoria_repository.dart';
 import 'package:tienda_online_flutter/app/data/repository/tienda_repository.dart';
 import 'package:tienda_online_flutter/app/data/service/user_service.dart';
+import 'package:tienda_online_flutter/app/modules/miTienda/mitienda_page.dart';
 
-class MiTiendaController extends GetxController{
-
+class MiTiendaController extends GetxController {
   TiendaRepository _repository = Get.find<TiendaRepository>();
   CategoriaRepository _repositoryCategoria = Get.find<CategoriaRepository>();
 
@@ -26,7 +24,11 @@ class MiTiendaController extends GetxController{
   RxBool _guardando = false.obs;
   RxBool _hayTienda = false.obs;
 
-  Rx<File> _fileImagen = Rx<File>( null );
+  RxList<CategoriaModel> _categoriasPadres = <CategoriaModel>[].obs;
+  Map<String, List<CategoriaModel>> _categoriaHijas =
+      Map<String, List<CategoriaModel>>().obs;
+
+  Rx<File> _fileImagen = Rx<File>(null);
 
   // GET
   TiendaModel get miTienda => _miTienda.value;
@@ -40,47 +42,65 @@ class MiTiendaController extends GetxController{
   String get errorNombre => _errorNombre.value;
   String get errorTelefono => _errorTelefono.value;
 
+  List<CategoriaModel> get categoriasPadres => this._categoriasPadres;
+
+  set categoriasPadres(List<CategoriaModel> value) =>
+      this._categoriasPadres.assignAll(value);
+
+  List<CategoriaModel> categoriasHijas(String idPadre) =>
+      this._categoriaHijas[idPadre];
+
+  List<String> categoriasHijasTienda(String idPadre) => this
+      .categoriasTienda
+      .where((element) => element.idPadre == idPadre)
+      .map((e) => e.id)
+      .toList();
+
   // SET
-  set miTienda( TiendaModel value ) => _miTienda.value = value;
-  set fileImagen( File value ) => _fileImagen.value = value;
-  set nombre( String value ) {
+  set miTienda(TiendaModel value) => _miTienda.value = value;
+  set fileImagen(File value) => _fileImagen.value = value;
+  set nombre(String value) {
     _nombre.value = value;
     validarCampos();
   }
-  set telefono( String value ) {
+
+  set telefono(String value) {
     _telefono.value = value;
     validarCampos();
   }
 
+  CategoriaModel categoriaPadre(String id) {
+    return this.categoriasPadres.firstWhere((element) => element.id == id);
+  }
+
   @override
   void onInit() {
-    
     getTienda();
-    
+
     super.onInit();
   }
 
   @override
-  void onReady(){
+  void onReady() {
     print('Estoy');
   }
 
   getTienda() async {
-
     _isLoading.value = true;
-    
-    try{
-      miTienda = await _repository.getTiendaUser( Get.find<UserService>().user.id );
-      categorias = await _repositoryCategoria.getCategoria();
-      cargarCategoriasTienda();
-      if( miTienda.nombre != null) _hayTienda.value = true;
-    } catch(e) {
+
+    try {
+      miTienda =
+          await _repository.getTiendaUser(Get.find<UserService>().user.id);
+      this.telefono = miTienda.telefono;
+      this.nombre = miTienda.nombre;
+      cargarCategorias();
+
+      if (miTienda.nombre != null) _hayTienda.value = true;
+    } catch (e) {
       print(e);
-      Get.snackbar('Error', 'Error al leer la tienda');      
+      Get.snackbar('Error', 'Error al leer la tienda');
+      _isLoading.value = false;
     }
-
-    _isLoading.value = false;
-
   }
 
   bool validarCampos() {
@@ -88,61 +108,55 @@ class MiTiendaController extends GetxController{
     bool valor = true;
     _errorNombre.value = '';
     _errorTelefono.value = '';
-    if( nombre.length <=1 ) {
+    if (nombre.length <= 1) {
       valor = false;
       _errorNombre.value = 'La longitud del nombre debe ser mayor a 1';
     }
-    if( telefono.length <=9 ) {
+    if (telefono.length <= 9) {
       valor = false;
       _errorTelefono.value = 'El cel no puede tener menos de 10 digitos';
     }
-    if( _numeric.hasMatch(telefono) ) {
+    if (_numeric.hasMatch(telefono)) {
       valor = false;
       _errorTelefono.value = 'Debe poner un cel valido';
     }
     return valor;
   }
-  
 
   cargarCategoriasTienda() {
+    if (miTienda.categories != null) {
+      for (var idTienda in miTienda.categories) {
+        CategoriaModel cat =
+            categorias.firstWhere((element) => element.id == idTienda);
 
-    if( miTienda.categories != null ) {
-      for( var idTienda in miTienda.categories){
-        CategoriaModel cat = categorias.firstWhere((element) => element.id == idTienda );
-
-        if( cat != null ) {
-          categoriasTienda.add( cat );
+        if (cat != null) {
+          categoriasTienda.add(cat);
         }
       }
     }
-
   }
 
   void grabarFoto() async {
-
     _cargandoFoto.value = true;
 
     try {
-
-      String foto = await _repository.subirImagen( fileImagen, miTienda.id );     
+      String foto = await _repository.subirImagen(fileImagen, miTienda.id);
       miTienda.img = foto;
-      miTienda = await _repository.updateTienda(miTienda);     
-      _miTienda.refresh(); 
+      miTienda = await _repository.updateTienda(miTienda);
+      _miTienda.refresh();
     } catch (e) {
       Get.snackbar('Error', 'Error al subir imagen');
     }
 
     _cargandoFoto.value = false;
-
   }
-  
+
   void crearTienda() async {
     //if( miTienda.nombre != null) _hayTienda.value = true;
 
     miTienda.categories = [];
 
-
-    for( var cat in categoriasTienda) {
+    for (var cat in categoriasTienda) {
       miTienda.categories.add(cat.id);
     }
 
@@ -151,32 +165,49 @@ class MiTiendaController extends GetxController{
     _guardando.value = true;
     try {
       miTienda = await _repository.createTienda(miTienda);
-      
-    }catch(e) {
+    } catch (e) {
       Get.snackbar('Error', 'Error al crear la tienda');
     }
     _guardando.value = false;
-    if( miTienda.nombre != null) _hayTienda.value = true;
-
+    if (miTienda.nombre != null) _hayTienda.value = true;
   }
 
   void updateTienda() async {
-    if( !validarCampos() ) {
+    if (!validarCampos()) {
       Get.snackbar('Error', 'El nombre o el Telefono tienen errores');
     }
 
     miTienda.categories = [];
-    for( var cat in categoriasTienda) {
+    for (var cat in categoriasTienda) {
       miTienda.categories.add(cat.id);
     }
 
     _guardando.value = true;
     try {
       await _repository.updateTienda(miTienda);
-    }catch(e) {
+    } catch (e) {
       Get.snackbar('Error', 'Error al actualizar la tienda');
     }
     _guardando.value = false;
+  }
 
+  cargarCategorias() async {
+    try {
+      categorias = await _repositoryCategoria.getCategoria();
+
+      this.categoriasPadres.assignAll(categorias
+          .toList()
+          .where((element) => element.idPadre?.length == 0)
+          .toList());
+      _categoriaHijas.clear();
+      for (var e in this._categoriasPadres) {
+        _categoriaHijas[e.id] =
+            categorias.where((el) => el.idPadre == e.id).toList();
+      }
+      cargarCategoriasTienda();
+      _isLoading.value = false;
+    } catch (e) {
+      Get.snackbar('Error', 'Error al cargar las categorias');
+    }
   }
 }

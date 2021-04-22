@@ -1,30 +1,38 @@
-
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:get_storage/get_storage.dart';
 import 'package:tienda_online_flutter/app/data/model/categoria_model.dart';
 
 class CategoriaProvider {
-
   final Dio dio = Get.find<Dio>();
   final box = GetStorage();
 
-  CategoriaProvider() { 
+  CategoriaProvider() {
     var token = box.read('token');
-    dio.options.headers = { 'Authorization': 'bearer $token' };
+    dio.options.headers = {'Authorization': 'bearer $token'};
   }
 
-  Future<List<CategoriaModel>> getCategoria( ) async {
+  Future<List<CategoriaModel>> getCategoria() async {
+    dio.options.headers.addAll({'Content-Type': 'application/json'});
 
-    dio.options.headers.addAll( { 'Content-Type': 'application/json' });                            
+    Response response = await dio.get(
+      'categoria',
+    );
 
-    Response response = await dio.get('categoria',            
-            );
-
-    if( response.data.length == 0 ) return null;
+    if (response.data.length == 0) return null;
     var datos = response.data['data'];
-    return datos.map<CategoriaModel>( (cat) => CategoriaModel.fromJson( cat )).toList();
-
+    return datos
+        .map<CategoriaModel>((cat) => CategoriaModel.fromJson(cat))
+        .toList();
   }
 
+  Future<CategoriaModel> agregarCategoria(CategoriaModel cat) async {
+    dio.options.headers.addAll({'Content-Type': 'application/json'});
+
+    Response response = await dio.post('categoria', data: cat);
+
+    if (response.data.length == 0) return null;
+
+    return CategoriaModel.fromJson(response.data['data']);
+  }
 }

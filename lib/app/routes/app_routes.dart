@@ -1,6 +1,4 @@
-
 class AppRoutes {
-
   static final HOME = 'home';
   static final LOGIN = 'login';
   static final REGISTER = 'register';
@@ -12,5 +10,6 @@ class AppRoutes {
   static final MIPRODUCTOS = 'miproductos';
   static final ROOT = 'root';
   static final SPLASHSCREEN = 'splashscreen';
-
+  static const CATEGORIAS = 'categorias';
+  static const CATEGORIASTIENDAS = 'categoriastiendas';
 }

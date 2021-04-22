@@ -7,7 +7,7 @@
     {
         "icon": "59955",
         "name": "Tiendas",
-        "redirectTo": "tiendas"
+        "redirectTo": "categoriastiendas"
     },
     {
         "icon": "59441",
@@ -23,5 +23,10 @@
         "icon": "62619",
         "name": "Mi Tienda",
         "redirectTo": "mitienda"
+    },
+    {
+        "icon": "60177",
+        "name": "Categorias",
+        "redirectTo": "categorias"
     }
 ]

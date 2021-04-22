@@ -1,50 +1,53 @@
 import 'dart:convert';
 
-CategoriaModel categoriaModelFromJson(String str) => CategoriaModel.fromJson(json.decode(str));
+CategoriaModel categoriaModelFromJson(String str) =>
+    CategoriaModel.fromJson(json.decode(str));
 
 String categoriaModelToJson(CategoriaModel data) => json.encode(data.toJson());
 
-class CategoriaModel {
-    CategoriaModel({
-        this.id,
-        this.nombre,
-        this.descripcion,
-        this.state,
-        this.createdAt,
-        this.updateAt,
-        //this.children,
-        this.idPadre
-    });
+class CategoriaModel extends Comparable {
+  @override
+  int compareTo(other) {
+    int nameComp = this.nombre.compareTo(other.nombre);
+    return nameComp;
+  }
 
-    String id;
-    String nombre;
-    String descripcion;
-    bool state;
-    DateTime createdAt;
-    DateTime updateAt;
-    //List<dynamic> children;
-    String idPadre;
+  CategoriaModel(
+      {this.id,
+      this.nombre,
+      this.descripcion,
+      this.state,
+      this.createdAt,
+      this.updateAt,
+      //this.children,
+      this.idPadre});
 
-    factory CategoriaModel.fromJson(Map<String, dynamic> json) => CategoriaModel(
-        id: json["_id"],
-        nombre: json["nombre"],
-        descripcion: json["descripcion"],
-        state: json["state"],
-        createdAt: json["createdAt"] == null 
-                    ? null
-                    :DateTime.parse(json["createdAt"]),
-        updateAt: json["updateAt"] == null 
-                    ? null
-                    :DateTime.parse(json["updateAt"]),
-        //children: List<dynamic>.from(json["children"].map((x) => x)),
-        idPadre: json["idPadre"]
-    );
+  String id;
+  String nombre;
+  String descripcion;
+  bool state;
+  DateTime createdAt;
+  DateTime updateAt;
+  //List<dynamic> children;
+  String idPadre;
 
-    Map<String, dynamic> toJson() => {
+  factory CategoriaModel.fromJson(Map<String, dynamic> json) => CategoriaModel(
+      id: json["_id"],
+      nombre: json["nombre"],
+      descripcion: json["descripcion"],
+      state: json["state"],
+      createdAt:
+          json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+      updateAt:
+          json["updateAt"] == null ? null : DateTime.parse(json["updateAt"]),
+      //children: List<dynamic>.from(json["children"].map((x) => x)),
+      idPadre: json["idPadre"]);
+
+  Map<String, dynamic> toJson() => {
         "nombre": nombre,
         "descripcion": descripcion,
         "state": state,
         "idPadre": idPadre
         //"children": List<dynamic>.from(children.map((x) => x)),
-    };
+      };
 }

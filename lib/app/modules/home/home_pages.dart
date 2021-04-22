@@ -1,7 +1,5 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:tienda_online_flutter/app/global_widgets/menu_principal.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tienda_online_flutter/app/modules/home/local_widget/swiper_principal.dart';
 
 import 'local_widget/swiper_horizontal.dart';
@@ -15,10 +13,7 @@ class HomePage extends StatelessWidget {
         title: Text(
           'Tiendas MP',
           style: TextStyle(
-            color: Colors.black,
-            fontFamily: 'Samantha',
-            fontSize: 40
-          ),
+              color: Colors.black, fontFamily: 'Samantha', fontSize: 40),
         ),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
@@ -52,15 +47,15 @@ class PinterestGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-      child: Column(
+      child: SingleChildScrollView(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            MovieHorizontal( banner: items ),
-            CardSwiper( banner: items),
+            MovieHorizontal(banner: items),
+            CardSwiper(banner: items),
           ],
         ),
-      
-      
+      ),
     );
   }
 }
