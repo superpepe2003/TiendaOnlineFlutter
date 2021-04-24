@@ -91,11 +91,13 @@ class MiTiendaController extends GetxController {
     try {
       miTienda =
           await _repository.getTiendaUser(Get.find<UserService>().user.id);
-      this.telefono = miTienda.telefono;
-      this.nombre = miTienda.nombre;
       cargarCategorias();
 
-      if (miTienda.nombre != null) _hayTienda.value = true;
+      if (miTienda.nombre != null) {
+        _hayTienda.value = true;
+        this.telefono = miTienda.telefono;
+        this.nombre = miTienda.nombre;
+      }
     } catch (e) {
       print(e);
       Get.snackbar('Error', 'Error al leer la tienda');

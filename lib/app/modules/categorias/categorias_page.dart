@@ -13,36 +13,36 @@ class CategoriasPage extends GetView<CategoriasController> {
   Widget build(BuildContext context) {
     final Responsive _responsive = Responsive(context);
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            'Tiendas MP',
-            style: TextStyle(
-                color: Colors.black, fontFamily: 'Samantha', fontSize: 40),
-          ),
-          backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Tiendas MP',
+          style: TextStyle(
+              color: Colors.black, fontFamily: 'Samantha', fontSize: 40),
         ),
-        drawer: MenuPrincipal(),
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 8.0, right: 8.0, top: 40),
-                  child: CategoriaPadreYAgregar(controller: controller),
-                ),
-                SizedBox(
-                  height: _responsive.hp(6),
-                ),
-                ListSubcategorias(controller: controller)
-              ],
-            ),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
+      drawer: MenuPrincipal(),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 40),
+                child: CategoriaPadreYAgregar(controller: controller),
+              ),
+              SizedBox(
+                height: _responsive.hp(6),
+              ),
+              ListSubcategorias(controller: controller)
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

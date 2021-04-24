@@ -1,46 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:tienda_online_flutter/app/data/model/menu_model.dart';
 import 'package:tienda_online_flutter/app/data/service/user_service.dart';
 import 'package:tienda_online_flutter/app/global_widgets/circulo.dart';
-import 'package:tienda_online_flutter/app/modules/home/home_pages.dart';
-import 'package:tienda_online_flutter/app/modules/miTienda/mitienda_page.dart';
-import 'package:tienda_online_flutter/app/modules/tiendas/tiendas_page.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
-class MenuPrincipal extends StatelessWidget {  
-
+class MenuPrincipal extends StatelessWidget {
   final menu = Get.find<UserService>().menu;
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      elevation: 0,
-      child: Column(
-        children: [
-          _Header(),
-          ListView.builder(
-            itemCount: menu.length,
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemBuilder: ( _, item ){
-              return ListTile(
-                leading: Icon(IconData(int.parse(
-                  menu[item].icon), fontFamily: 'MaterialIcons'), 
-                  color: Color(0xffB11780),
-                ),
-                title: Text('${ menu[item].name }'),
-                onTap: () {
-                  Navigator.pushNamed(context, '${ menu[item].redirectTo }');
-                },
-              );
-            }
-            
-          )
-        ],
-      )
-    );
+        elevation: 0,
+        child: Column(
+          children: [
+            _Header(),
+            ListView.builder(
+                itemCount: menu.length,
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemBuilder: (_, item) {
+                  return (menu[item].icon == '0')
+                      ? Divider()
+                      : ListTile(
+                          leading: Icon(
+                            IconData(int.parse(menu[item].icon),
+                                fontFamily: 'MaterialIcons'),
+                            color: Color(0xffB11780),
+                          ),
+                          title: Text('${menu[item].name}'),
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, '${menu[item].redirectTo}');
+                          },
+                        );
+                })
+          ],
+        ));
   }
 }
 
@@ -48,18 +42,16 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<UserService>();
-    final Responsive responsive = Responsive( context );
+    final Responsive responsive = Responsive(context);
     return Stack(
       children: [
         Positioned(
           top: responsive.wp(-25),
           left: responsive.wp(-20),
-          child: Circulo(
-            colors: [
-              Color(0xffFDD4A4),
-              Color(0xffB89369),
-            ], 
-            size: responsive.wp(60)),
+          child: Circulo(colors: [
+            Color(0xffFDD4A4),
+            Color(0xffB89369),
+          ], size: responsive.wp(60)),
         ),
         Positioned(
           top: responsive.wp(-30),
@@ -107,27 +99,25 @@ class _Header extends StatelessWidget {
                     ),
                   )),
               Obx(() => Padding(
-                    padding: const EdgeInsets.only( bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 10),
                     child: Text('${controller.user.email}',
                         style: TextStyle(
                           color: Colors.white,
                         )),
-                  )),            
+                  )),
               Center(
                 //margin: EdgeInsets.only(top: 10),
                 child: Hero(
                   tag: 'miPerfil',
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(60),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black38,
-                          blurRadius: 15,                            
-                          offset: Offset(0, 1)
-                        )                        
-                      ]
-                    ),
+                        borderRadius: BorderRadius.circular(60),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black38,
+                              blurRadius: 15,
+                              offset: Offset(0, 1))
+                        ]),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(60),
                       child: GestureDetector(

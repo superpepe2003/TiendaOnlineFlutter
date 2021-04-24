@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import 'package:tienda_online_flutter/app/modules/categorias/categorias_binding.dart';
 import 'package:tienda_online_flutter/app/modules/categorias/categorias_page.dart';
 import 'package:tienda_online_flutter/app/modules/categoriastiendas/categoriastiendas_binding.dart';
@@ -23,6 +22,8 @@ import 'package:tienda_online_flutter/app/modules/tienda/tienda_binding.dart';
 import 'package:tienda_online_flutter/app/modules/tienda/tienda_page.dart';
 import 'package:tienda_online_flutter/app/modules/tiendas/tiendas_binding.dart';
 import 'package:tienda_online_flutter/app/modules/tiendas/tiendas_page.dart';
+import 'package:tienda_online_flutter/app/modules/usuarios/usuarios_binding.dart';
+import 'package:tienda_online_flutter/app/modules/usuarios/usuarios_view.dart';
 
 import 'app_routes.dart';
 
@@ -72,6 +73,11 @@ class AppPages {
       name: AppRoutes.CATEGORIASTIENDAS,
       page: () => CategoriastiendasView(),
       binding: CategoriastiendasBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.USUARIOS,
+      page: () => UsuariosView(),
+      binding: UsuariosBinding(),
     ),
   ];
 }

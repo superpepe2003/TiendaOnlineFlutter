@@ -20,6 +20,8 @@ class MiProductosController extends GetxController {
   RxInt _index = (-1).obs;
   Rx<File> _fileImagen = Rx<File>(null);
 
+  bool isModificar = false;
+
   String Titulo = 'Productos';
 
   List<ProductoModel> get productos => _productos.toList();
@@ -94,5 +96,23 @@ class MiProductosController extends GetxController {
     }
 
     return false;
+  }
+
+  cargarProductoModificar(ProductoModel produ) {
+    isModificar = true;
+    nombre = produ.nombre;
+    subtitulo = produ.subtitulo;
+    precio = produ.precio;
+    destacado = produ.destacado;
+    disponible = produ.disponible;
+  }
+
+  limpiarCampos() {
+    this.nombre = '';
+    this.subtitulo = '';
+    this.precio = 0;
+    this.disponible = false;
+    this.destacado = false;
+    this.isModificar = false;
   }
 }

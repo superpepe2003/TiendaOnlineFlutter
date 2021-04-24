@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:tienda_online_flutter/app/global_widgets/menu_principal.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
+import '../../utils/responsive.dart';
 import 'categoriastiendas_controller.dart';
-import 'local_widget/lista_cat_padres.dart';
-import 'local_widget/lista_subcat.dart';
+import 'local_widget/categoria_tab.dart';
 
 class CategoriastiendasView extends GetView<CategoriastiendasController> {
   @override
@@ -23,24 +23,70 @@ class CategoriastiendasView extends GetView<CategoriastiendasController> {
         iconTheme: IconThemeData(color: Colors.black),
       ),
       drawer: MenuPrincipal(),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Stack(
-          children: [
-            SizedBox(
-              height: _resp.wp(15),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: _resp.wp(30)),
-              child: SafeArea(child: ListaCatHijas()),
-            ),
-            SizedBox(
-              height: _resp.wp(4),
-            ),
-            ListaCatPadres(),
-          ],
+      body: Obx(
+        () => PageStorage(
+          child: controller.screens[controller.currentTab],
+          bucket: controller.bucket,
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.access_alarm),
+        backgroundColor: Colors.grey,
+        onPressed: () {},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Obx(() => Container(
+            height: 60,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                MaterialButton(
+                  minWidth: 40,
+                  onPressed: () {
+                    controller.currentScreen = CategoriaTab();
+                    controller.currentTab = 0;
+                  },
+                  child: Column(
+                    children: [
+                      Icon(Icons.analytics_outlined,
+                          color: controller.currentTab == 0
+                              ? Colors.orange
+                              : Colors.grey),
+                      Text('Categorías',
+                          style: TextStyle(
+                              color: controller.currentTab == 0
+                                  ? Colors.orange
+                                  : Colors.grey))
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: _resp.wp(10),
+                ),
+                MaterialButton(
+                  minWidth: 40,
+                  onPressed: () {
+                    controller.currentScreen = CategoriaTab();
+                    controller.currentTab = 1;
+                  },
+                  child: Column(
+                    children: [
+                      Icon(Icons.favorite,
+                          color: controller.currentTab == 1
+                              ? Colors.orange
+                              : Colors.grey),
+                      Text('Favoritos',
+                          style: TextStyle(
+                              color: controller.currentTab == 1
+                                  ? Colors.orange
+                                  : Colors.grey))
+                    ],
+                  ),
+                )
+              ],
+            ))),
       ),
     );
   }

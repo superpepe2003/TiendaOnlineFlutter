@@ -14,98 +14,107 @@ class AgregarProducto extends GetView<MiProductosController> {
     return Container(
       height: _resp.hp(60),
       width: _resp.wp(90),
-      child: Column(
-        children: [
-          Container(
-            height: _resp.hp(5),
-            color: miTema().primaryColor,
-            child: Center(
-              child: Text(
-                'Agregar Producto',
-                style: TextStyle(
-                  color: Colors.white,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: _resp.hp(5),
+              color: miTema().primaryColor,
+              child: Center(
+                child: Text(
+                  (controller.isModificar)
+                      ? 'Modificar Producto'
+                      : 'Agregar Producto',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              initialValue: controller.nombre,
-              decoration: InputDecoration(
-                  hintText: 'Nombre',
-                  labelText: 'Nombre del Producto',
-                  icon: Icon(Icons.add_shopping_cart)),
-              onChanged: ( value ) => controller.nombre = value,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                initialValue: controller.nombre,
+                decoration: InputDecoration(
+                    hintText: 'Nombre',
+                    labelText: 'Nombre del Producto',
+                    icon: Icon(Icons.add_shopping_cart)),
+                onChanged: (value) => controller.nombre = value,
+              ),
             ),
-          ),
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              initialValue: controller.subtitulo,
-              decoration: InputDecoration(
-                  hintText: 'Descripcion',
-                  labelText: 'Describe el producto',
-                  icon: Icon(Icons.ballot_outlined)),
-              onChanged: ( value ) => controller.subtitulo = value,
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                initialValue: controller.subtitulo,
+                decoration: InputDecoration(
+                    hintText: 'Descripcion',
+                    labelText: 'Describe el producto',
+                    icon: Icon(Icons.ballot_outlined)),
+                onChanged: (value) => controller.subtitulo = value,
+              ),
             ),
-          ),
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              initialValue: controller.precio.toString(),
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  hintText: 'Precio',
-                  labelText: 'Precio',
-                  icon: Icon(Icons.attach_money)),
-              onChanged: ( value ) => controller.precio = double.parse(value),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                initialValue: controller.precio.toString(),
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    hintText: 'Precio',
+                    labelText: 'Precio',
+                    icon: Icon(Icons.attach_money)),
+                onChanged: (value) =>
+                    controller.precio = double.tryParse(value) ?? 0,
+              ),
             ),
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text('Destacado'),
-              Text('Disponible'),
-            ],
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Obx(() => CupertinoSwitch(
-                    value: controller.destacado,
-                    onChanged: (value) {
-                      controller.destacado = value;                      
-                    },
-                  )),
-              Obx(() => CupertinoSwitch(
-                    value: controller.disponible,
-                    onChanged: (value) {
-                      controller.disponible = value;
-                    },
-                  )),
-            ],
-          ),
-
-          Expanded( child: Container()),
-          MaterialButton(
-            color: miTema().primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only( topLeft: Radius.circular(20), bottomRight: Radius.circular(20) )
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('Destacado'),
+                Text('Disponible'),
+              ],
             ),
-            child: Text('Grabar Perfil'),
-            onPressed: () async{
-              var result = await controller.guardarProducto();
-              if( result ) {
-                Get.back();
-              }
-            }
-          ),
-        ],
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Obx(() => CupertinoSwitch(
+                      value: controller.destacado,
+                      onChanged: (value) {
+                        controller.destacado = value;
+                      },
+                    )),
+                Obx(() => CupertinoSwitch(
+                      value: controller.disponible,
+                      onChanged: (value) {
+                        controller.disponible = value;
+                      },
+                    )),
+              ],
+            ),
+            //Expanded(child: Container()),
+            SizedBox(
+              height: _resp.hp(5),
+            ),
+            MaterialButton(
+                color: miTema().primaryColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20))),
+                child: Text((controller.isModificar)
+                    ? 'Modificar Producto'
+                    : 'Agregar Producto'),
+                onPressed: () async {
+                  var result = await controller.guardarProducto();
+                  if (result) {
+                    Get.back();
+                  }
+                }),
+          ],
+        ),
       ),
     );
   }

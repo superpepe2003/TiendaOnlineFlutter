@@ -12,15 +12,16 @@ class SubCategoria extends GetView<CategoriastiendasController> {
   Widget build(BuildContext context) {
     final Responsive _resp = Responsive(context);
     return InkWell(
-      onTap: () {
-        Get.toNamed('tiendas',
+      onTap: () async {
+        var valor = await Get.toNamed('tiendas',
             arguments:
                 controller.categoriasHijas(controller.currentPadre)[index].id);
+        controller.cargarFavoritos();
       },
       child: Container(
-        margin: EdgeInsets.all(_resp.wp(4)),
-        width: _resp.wp(20),
-        height: _resp.wp(20),
+        //margin: EdgeInsets.all(_resp.wp(4)),
+        width: controller.itemSize,
+        height: controller.itemSize,
         decoration: BoxDecoration(
             // gradient: LinearGradient(colors: [
             //   Color(0xFFE6952C),

@@ -1,59 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:tienda_online_flutter/app/global_widgets/menu_principal.dart';
-import 'package:tienda_online_flutter/app/modules/tiendas/tiendas_controller.dart';
+import 'package:tienda_online_flutter/app/modules/categoriastiendas/categoriastiendas_controller.dart';
 import 'package:tienda_online_flutter/app/routes/app_routes.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
-class TiendasPage extends StatelessWidget {
+class FavoritoTab extends GetView<CategoriastiendasController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Tiendas MP',
-          style: TextStyle(
-              color: Colors.black, fontFamily: 'Samantha', fontSize: 40),
-        ),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
-      drawer: MenuPrincipal(),
-      body: Center(
-        child: PinterestGrid(),
-      ),
+    return Container(
+      child: PinterestGrid(),
     );
   }
 }
 
-class PinterestGrid extends GetView<TiendasController> {
+class PinterestGrid extends GetView<CategoriastiendasController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => (controller.cargando)
         ? Center(
             child: CircularProgressIndicator(),
           )
-        : RefreshIndicator(
-            onRefresh: controller.actualizar,
-            child: StaggeredGridView.countBuilder(
-              crossAxisCount: 4,
-              itemCount: controller.tiendas.length,
-              itemBuilder: (BuildContext context, int index) =>
-                  _PinterestItem(index, controller),
-              staggeredTileBuilder: (int index) =>
-                  new StaggeredTile.count(2, index.isEven ? 3 : 2.5),
-              mainAxisSpacing: 4.0,
-              crossAxisSpacing: 4.0,
-            ),
+        : StaggeredGridView.countBuilder(
+            crossAxisCount: 4,
+            itemCount: controller.favoritos.length,
+            itemBuilder: (BuildContext context, int index) =>
+                _PinterestItem(index, controller),
+            staggeredTileBuilder: (int index) =>
+                new StaggeredTile.count(2, index.isEven ? 3 : 2.5),
+            mainAxisSpacing: 4.0,
+            crossAxisSpacing: 4.0,
           ));
   }
 }
 
 class _PinterestItem extends StatelessWidget {
   final int index;
-  final TiendasController controller;
+  final CategoriastiendasController controller;
 
   _PinterestItem(this.index, this.controller);
 
@@ -63,7 +48,7 @@ class _PinterestItem extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.TIENDA, arguments: controller.tiendas[index]);
+        Get.toNamed(AppRoutes.TIENDA, arguments: controller.favoritos[index]);
       },
       child: Obx(() => Container(
             padding: EdgeInsets.symmetric(vertical: 5.0),
@@ -75,11 +60,11 @@ class _PinterestItem extends StatelessWidget {
                   child: ClipRRect(
                       clipBehavior: Clip.antiAlias,
                       borderRadius: BorderRadius.circular(20.0),
-                      child: (controller.tiendas[index].img != null)
+                      child: (controller.favoritos[index].img != null)
                           ? FadeInImage(
                               placeholder: AssetImage('assets/giphy.gif'),
                               image: NetworkImage(
-                                  '${controller.tiendas[index].img}'),
+                                  '${controller.favoritos[index].img}'),
                               fit: BoxFit.cover)
                           : Image(
                               image: AssetImage('assets/no-image-tienda.jpg'),
@@ -87,32 +72,29 @@ class _PinterestItem extends StatelessWidget {
                             )),
                 ),
               ),
-              GetBuilder<TiendasController>(
+              GetBuilder<CategoriastiendasController>(
                   builder: (_) => Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              '${controller.tiendas[index].nombre}',
+                              '${controller.favoritos[index].nombre}',
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ),
                           IconButton(
-                              icon: (controller.buscarFavoritos(
-                                      controller.tiendas[index].id))
-                                  ? Icon(
-                                      Icons.favorite,
-                                      color: Colors.red,
-                                    )
-                                  : Icon(Icons.favorite_border_outlined),
+                              icon: Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                              ),
                               onPressed: () {
-                                controller.grabarFavoritos(
-                                    controller.tiendas[index].id);
+                                controller.eliminarFavoritos(
+                                    controller.favoritos[index].id);
                               })
                         ],
-                      )),
+                      )),                
             ]),
           )),
     );

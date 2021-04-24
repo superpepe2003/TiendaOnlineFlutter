@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tienda_online_flutter/app/theme/miTema_light.dart';
@@ -39,7 +37,6 @@ class FormRegister extends StatelessWidget {
             _crearEmail(),
             _crearPassword(),
             _crearNombre(),
-            
           ])),
     );
   }
@@ -48,11 +45,10 @@ class FormRegister extends StatelessWidget {
 class _crearEmail extends GetWidget<RegisterController> {
   @override
   Widget build(BuildContext context) {
-
     return Container(
       padding: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
       child: Obx(() => TextFormField(
-        controller: controller.controllerEmail,
+            controller: controller.controllerEmail,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               hintText: 'Email',
@@ -61,6 +57,7 @@ class _crearEmail extends GetWidget<RegisterController> {
               icon: Icon(Icons.email),
             ),
             onChanged: controller.emailChanged,
+            onFieldSubmitted: (_) => context.nextEditableTextFocus(),
           )),
     );
   }
@@ -69,11 +66,10 @@ class _crearEmail extends GetWidget<RegisterController> {
 class _crearPassword extends GetWidget<RegisterController> {
   @override
   Widget build(BuildContext context) {
-
     return Container(
       padding: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
       child: Obx(() => TextFormField(
-        controller: controller.controllerPassword,
+            controller: controller.controllerPassword,
             obscureText: controller.mostrarPassword,
             decoration: InputDecoration(
                 hintText: 'Password',
@@ -87,6 +83,7 @@ class _crearPassword extends GetWidget<RegisterController> {
                   },
                 )),
             onChanged: controller.passwordChanged,
+            onFieldSubmitted: (_) => context.nextEditableTextFocus(),
           )),
     );
   }
@@ -95,7 +92,6 @@ class _crearPassword extends GetWidget<RegisterController> {
 class _crearNombre extends GetWidget<RegisterController> {
   @override
   Widget build(BuildContext context) {
-
     return Container(
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
         child: Obx(() => TextFormField(
@@ -108,6 +104,15 @@ class _crearNombre extends GetWidget<RegisterController> {
                 icon: Icon(Icons.supervised_user_circle),
               ),
               onChanged: controller.nombreChanged,
+              onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
             )));
+  }
+}
+
+extension Utility on BuildContext {
+  void nextEditableTextFocus() {
+    do {
+      FocusScope.of(this).nextFocus();
+    } while (FocusScope.of(this).focusedChild.context.widget is! EditableText);
   }
 }

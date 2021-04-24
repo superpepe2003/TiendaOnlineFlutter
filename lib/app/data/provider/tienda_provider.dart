@@ -38,6 +38,17 @@ class TiendaProvider {
         .toList();
   }
 
+  Future<TiendaModel> getTienda(String id) async {
+    dio.options.headers.addAll({'Content-Type': 'application/json'});
+
+    Response response = await dio.get(
+      'tienda/$id',
+    );
+
+    if (response.data.length == 0) return null;
+    return TiendaModel.fromJson(response.data['data']);
+  }
+
   Future<List<TiendaModel>> getTiendas() async {
     dio.options.headers.addAll({'Content-Type': 'application/json'});
 

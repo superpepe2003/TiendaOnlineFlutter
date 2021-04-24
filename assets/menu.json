@@ -20,13 +20,24 @@
         "redirectTo": ""
     },
     {
+        "icon": "0"
+    },
+    {
         "icon": "62619",
         "name": "Mi Tienda",
         "redirectTo": "mitienda"
     },
     {
+        "icon": "0"
+    },
+    {
         "icon": "60177",
         "name": "Categorias",
         "redirectTo": "categorias"
+    },
+    {
+        "icon": "62635",
+        "name": "Usuarios",
+        "redirectTo": "usuarios"
     }
 ]

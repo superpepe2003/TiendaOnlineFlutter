@@ -12,4 +12,5 @@ class AppRoutes {
   static final SPLASHSCREEN = 'splashscreen';
   static const CATEGORIAS = 'categorias';
   static const CATEGORIASTIENDAS = 'categoriastiendas';
+  static const USUARIOS = 'usuarios';
 }

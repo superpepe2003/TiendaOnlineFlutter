@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:tienda_online_flutter/app/modules/miProductos/local_widgets/agregar_producto.dart';
-import 'package:tienda_online_flutter/app/modules/miProductos/local_widgets/foto_producto.dart';
 import 'package:tienda_online_flutter/app/modules/miProductos/miproductos_controller.dart';
-import 'package:tienda_online_flutter/app/utils/responsive.dart';
+
+import 'local_widgets/lista_productos.dart';
 
 class MiProductoPage extends GetView<MiProductosController> {
   @override
@@ -42,55 +42,7 @@ class MiProductoPage extends GetView<MiProductosController> {
         ),
         body: Container(
           padding: EdgeInsets.all(15.0),
-          child: _listarProductos(controller),
+          child: ListaProductos(),
         ));
-  }
-
-  Widget _listarProductos(MiProductosController controller) {
-    return Obx(() => ListView.builder(
-        itemCount: controller.productos.length,
-        itemBuilder: (BuildContext context, int index) {
-          Responsive _responsive = Responsive(context);
-          var produ = controller.productos[index];
-          return Container(
-            height: _responsive.hp(20),
-            margin: EdgeInsets.all(5),
-            child: Row(
-              children: [
-                FotoProducto(index),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Text(
-                        produ.nombre,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    (produ.subtitulo != null)
-                        ? Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 5),
-                            width: _responsive.wp(50),
-                            child: Text(
-                              produ.subtitulo,
-                              style: TextStyle(fontSize: 12),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )
-                        : Container(),
-                    Expanded(child: Container()),
-                    Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Text('\$ ${produ.precio.toString()}')),
-                  ],
-                ),
-              ],
-            ),
-          );
-        }));
   }
 }

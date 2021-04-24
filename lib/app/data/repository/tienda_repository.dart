@@ -24,4 +24,5 @@ class TiendaRepository {
       _api.subirImagen(imagen, id);
 
   Future<List<TiendaModel>> getTiendas() => _api.getTiendas();
+  Future<TiendaModel> getTienda(String id) => _api.getTienda(id);
 }
