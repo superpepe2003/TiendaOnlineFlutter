@@ -1,36 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:tienda_online_flutter/app/modules/loginregister/controller/login_controller.dart';
+import 'package:tienda_online_flutter/app/modules/loginregister/controller/loginregister_controller.dart';
 import 'package:tienda_online_flutter/app/theme/miTema_light.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
-
-import '../login_controller.dart';
 
 class FormLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Responsive responsive = Responsive(context);
-
     return Center(
       child: Container(
-          padding: EdgeInsets.only(bottom: 50),
-          width: responsive.wp(80),
-          height: responsive.hp(40),
+          // padding: EdgeInsets.only(bottom: 50),
           decoration: BoxDecoration(
-              color: Colors.white.withAlpha(220),
+              color: Colors.white.withAlpha(240),
               borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(responsive.wp(20))),
+                bottomLeft: Radius.circular(Get.width * 0.1),
+                topLeft: Radius.circular(Get.width * 0.1),
+              ),
+              //: BorderRadius.all(Radius.circular(Get.width * 0.1)),
               boxShadow: [
                 BoxShadow(
                   blurRadius: 20,
                   color: Colors.black38,
                 ),
               ]),
-          child: SingleChildScrollView(
-            child: Column(children: [
-              Container(
-                color: miTema().primaryColor,
+          child: Column(children: [
+            GestureDetector(
+              onTap: () {
+                Get.find<LoginregisterController>().index = 0;
+              },
+              child: Container(
                 width: double.infinity,
-                height: responsive.wp(15),
+                height: Get.height * 0.06,
+                decoration: BoxDecoration(
+                  color: miTema().primaryColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Get.width * 0.1),
+                  ),
+                ),
                 child: Center(
                   child: Text(
                     'Login',
@@ -38,10 +47,12 @@ class FormLogin extends StatelessWidget {
                   ),
                 ),
               ),
-              _crearEmail(),
-              _crearPassword(),
-            ]),
-          )),
+            ),
+            _crearEmail(),
+            _crearPassword(),
+            Expanded(child: Container()),
+            _crearBoton()
+          ])),
     );
   }
 }
@@ -95,5 +106,37 @@ class _crearPassword extends StatelessWidget {
             }));
       },
     );
+  }
+}
+
+class _crearBoton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<LoginController>(builder: (_) {
+      return Container(
+          width: Get.width * 0.6,
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 2),
+              spreadRadius: 1,
+              blurRadius: 15,
+              color: Colors.black26,
+            ),
+          ]),
+          child: ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(15.0),
+                      bottomLeft: Radius.circular(15.0))),
+              elevation: 0.0,
+              onPrimary: miTema().primaryColor,
+              primary: Colors.white,
+            ),
+            onPressed: _.loginFunc,
+            icon: FaIcon(FontAwesomeIcons.registered),
+            label: Text(' Ingresar '),
+          ));
+    });
   }
 }

@@ -1,30 +1,31 @@
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tienda_online_flutter/app/data/model/login_model.dart';
 import 'package:tienda_online_flutter/app/data/repository/auth_repository.dart';
 import 'package:tienda_online_flutter/app/data/service/user_service.dart';
+import 'package:tienda_online_flutter/app/modules/home/home_pages.dart';
+import 'package:tienda_online_flutter/app/modules/loginregister/controller/loginregister_controller.dart';
 import 'package:tienda_online_flutter/app/modules/root/root.dart';
 import 'package:get/route_manager.dart';
 
-class LoginController extends GetxController{
+class LoginController extends GetxController {
   final AuthRepository _repository = Get.find<AuthRepository>();
-  
+
   final box = GetStorage();
 
   //Rx<UsuarioModel> _user = UsuarioModel().obs;
-  var _email = ''.obs;
-  var _password = ''.obs;
+  var _email = 'a@a.com'.obs;
+  var _password = '123123'.obs;
   RxString _errorEmail = RxString(null);
   RxString _errorPassword = RxString(null);
-  Rx<Function> _loginFunc = Rx<Function>(null); 
+  Rx<Function> _loginFunc = Rx<Function>(null);
   RxBool _isLoading = false.obs;
   RxBool _mostrarPassword = true.obs;
   var controller;
-  
+
   bool get mostrarPassword => _mostrarPassword.value;
 
-  set mostrarPassword( bool value ){
+  set mostrarPassword(bool value) {
     _mostrarPassword.value = value;
   }
 
@@ -40,82 +41,83 @@ class LoginController extends GetxController{
 
   bool get isLoading => _isLoading.value;
 
-  void emailChanged( String value ) {
+  void emailChanged(String value) {
     _email.value = value;
   }
 
-  void passwordChanged( String value ) {
+  void passwordChanged(String value) {
     _password.value = value;
   }
 
   @override
-  void onInit() async{
+  void onInit() async {
     controller = Get.find<UserService>();
-    debounce( _email, validarEmail, time: Duration( milliseconds: 500 ));
-    debounce( _password, validarPassword, time: Duration( milliseconds: 500 ));
+    debounce(_email, validarEmail, time: Duration(milliseconds: 500));
+    debounce(_password, validarPassword, time: Duration(milliseconds: 500));
     _loginFunc.value = login();
     await verificaToken();
-    super.onInit();    
+    super.onInit();
   }
-  
 
-  validarEmail( String val ) async {
+  validarEmail(String val) async {
     _errorEmail.value = null;
 
-    if( !val.isEmail ) {
+    if (!val.isEmail) {
       _errorEmail.value = 'Debe ingresar un email valido';
       _loginFunc.value = null;
     }
-    if( errorEmail == null && errorPassword == null){
+    if (errorEmail == null && errorPassword == null) {
       _loginFunc.value = login();
     }
   }
 
-  validarPassword( String val ) async {
+  validarPassword(String val) async {
     _errorPassword.value = null;
-    if( val.length < 6 ) {
+    if (val.length < 6) {
       _errorPassword.value = 'El password debe contener mínimo 6 caracteres';
       _loginFunc.value = null;
     }
-    if( errorEmail == null && errorPassword == null){
+    if (errorEmail == null && errorPassword == null) {
       _loginFunc.value = login();
     }
   }
 
-  verificaToken() async{
+  verificaToken() async {
     String token = await box.read('token');
-    if ( token != null ) {
+    if (token != null) {
       _isLoading.value = true;
       Get.find<UserService>().cargando = true;
       try {
-        LoginModel loginModel = await _repository.verificaToken( token );
+        LoginModel loginModel = await _repository.verificaToken(token);
         await box.write('token', loginModel.accessToken);
         controller.user = loginModel.user;
-      } catch( e ) {
-      }
-      
+      } catch (e) {}
+
       _isLoading.value = false;
       Get.find<UserService>().cargando = false;
     }
   }
 
-  void Function() login () {
+  void Function() login() {
     return () async {
       _isLoading.value = true;
+      Get.find<LoginregisterController>().isCargando = true;
 
-      try {        
-        LoginModel loginModel = await _repository.login( this._email.value, this._password.value);
+      try {
+        LoginModel loginModel =
+            await _repository.login(this._email.value, this._password.value);
         await box.write('token', loginModel.accessToken);
         controller.user = loginModel.user;
-        Get.offAll( RootPage());
+        Future.delayed(Duration.zero, () {
+          Get.off(() => RootPage());
+        });
       } catch (e) {
-        Get.snackbar('Login', 'Los datos no son correctos', snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar('Login', 'Los datos no son correctos',
+            snackPosition: SnackPosition.BOTTOM);
       }
 
       _isLoading.value = false;
-
+      Get.find<LoginregisterController>().isCargando = false;
     };
   }
-
-
 }

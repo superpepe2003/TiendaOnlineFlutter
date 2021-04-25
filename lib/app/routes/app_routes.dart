@@ -1,7 +1,7 @@
 class AppRoutes {
   static final HOME = 'home';
-  static final LOGIN = 'login';
-  static final REGISTER = 'register';
+  //static final LOGIN = 'login';
+  //static final REGISTER = 'register';
   static final PERFIL = 'perfil';
   static final PRODUCTO = 'producto';
   static final TIENDA = 'tienda';
@@ -13,4 +13,5 @@ class AppRoutes {
   static const CATEGORIAS = 'categorias';
   static const CATEGORIASTIENDAS = 'categoriastiendas';
   static const USUARIOS = 'usuarios';
+  static const LOGINREGISTER = 'loginregister';
 }
