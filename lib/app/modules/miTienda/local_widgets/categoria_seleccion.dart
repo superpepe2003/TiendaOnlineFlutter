@@ -12,13 +12,14 @@ class CategoriasSeleccion extends GetView<MiTiendaController> {
       customizableMultiselectWidgetOptions:
           CustomizableMultiselectWidgetOptions(
         hintText: Text('Seleccione las categorias',
-            style: TextStyle(color: Colors.grey)),
+            style: TextStyle(color: Theme.of(context).accentColor)),
 
         // decoration: InputDecoration(
         //     labelText: 'Multiselect Sample teste',
         // ),
+        chipColor: Theme.of(context).primaryColor,
         chipShape: RoundedRectangleBorder(
-          side: BorderSide(color: Colors.red, width: 1),
+          side: BorderSide(color: Theme.of(context).primaryColor, width: 1),
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
@@ -40,7 +41,7 @@ class CategoriasSeleccion extends GetView<MiTiendaController> {
                   labelKey: 'label',
                   title: Text(
                     '${controller.categoriaPadre(cp.id).nombre}',
-                    style: TextStyle(color: Colors.red),
+                    style: TextStyle(color: Theme.of(context).accentColor),
                     textAlign: TextAlign.start,
                   )),
             )

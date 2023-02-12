@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tienda_online_flutter/app/modules/categorias/categorias_controller.dart';
-import 'package:tienda_online_flutter/app/theme/miTema_light.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
 class ListadoCategoriaPadres extends GetView<CategoriasController> {
@@ -16,10 +15,11 @@ class ListadoCategoriaPadres extends GetView<CategoriasController> {
           Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-              color: miTema().primaryColor,
+              color: Theme.of(context).primaryColor,
               child: Text(
                 'Categorias',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 18, color: Theme.of(context).accentColor),
               )),
           SizedBox(
             height: _resp.wp(5),
@@ -39,7 +39,7 @@ class ListadoCategoriaPadres extends GetView<CategoriasController> {
                     child: Text(
                       '${controller.categoriasPadres[index].nombre}',
                       style: TextStyle(
-                        color: Colors.black87,
+                        color: Theme.of(context).hintColor,
                         fontSize: 18,
                       ),
                     ));

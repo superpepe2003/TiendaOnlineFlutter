@@ -13,14 +13,15 @@ class CategoriastiendasView extends GetView<CategoriastiendasController> {
     Responsive _resp = Responsive(context);
     return Scaffold(
       appBar: AppBar(
+        brightness: Theme.of(context).appBarTheme.brightness,
         centerTitle: true,
         title: Text(
           'Tiendas MP',
-          style: TextStyle(
-              color: Colors.black, fontFamily: 'Samantha', fontSize: 40),
+          style: Theme.of(context).appBarTheme.textTheme.headline1,
         ),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        iconTheme:
+            IconThemeData(color: Theme.of(context).appBarTheme.foregroundColor),
       ),
       drawer: MenuPrincipal(),
       body: Obx(
@@ -31,7 +32,7 @@ class CategoriastiendasView extends GetView<CategoriastiendasController> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.access_alarm),
-        backgroundColor: Colors.grey,
+        backgroundColor: Theme.of(context).appBarTheme.foregroundColor,
         onPressed: () {},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -52,13 +53,13 @@ class CategoriastiendasView extends GetView<CategoriastiendasController> {
                     children: [
                       Icon(Icons.analytics_outlined,
                           color: controller.currentTab == 0
-                              ? Colors.orange
-                              : Colors.grey),
+                              ? Theme.of(context).hintColor
+                              : Theme.of(context).primaryColorDark),
                       Text('Categorías',
                           style: TextStyle(
                               color: controller.currentTab == 0
-                                  ? Colors.orange
-                                  : Colors.grey))
+                                  ? Theme.of(context).hintColor
+                                  : Theme.of(context).primaryColorDark))
                     ],
                   ),
                 ),
@@ -75,13 +76,13 @@ class CategoriastiendasView extends GetView<CategoriastiendasController> {
                     children: [
                       Icon(Icons.favorite,
                           color: controller.currentTab == 1
-                              ? Colors.orange
-                              : Colors.grey),
+                              ? Theme.of(context).hintColor
+                              : Theme.of(context).primaryColorDark),
                       Text('Favoritos',
                           style: TextStyle(
                               color: controller.currentTab == 1
-                                  ? Colors.orange
-                                  : Colors.grey))
+                                  ? Theme.of(context).hintColor
+                                  : Theme.of(context).primaryColorDark))
                     ],
                   ),
                 )

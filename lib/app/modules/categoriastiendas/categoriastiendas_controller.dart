@@ -51,7 +51,7 @@ class CategoriastiendasController extends GetxController
 
   List<TiendaModel> get favoritos => _favoritos.toList();
 
-  ScrollController scrollController = ScrollController();
+  ScrollController scrollController;
 
   RxDouble _percent = (0.0).obs;
   get percent => this._percent.value;
@@ -65,7 +65,9 @@ class CategoriastiendasController extends GetxController
     super.onInit();
     cargarPantallas();
     cargarCategorias();
+    scrollController = ScrollController();
     scrollController.addListener(onlisten);
+    //scrollController.jumpTo(0);
   }
 
   onlisten() {
@@ -74,9 +76,10 @@ class CategoriastiendasController extends GetxController
 
   @override
   void onClose() {
-    // TODO: implement onClose
-    super.onClose();
+    print('CERRADO');
     scrollController.removeListener(onlisten);
+    scrollController.dispose();
+    super.onClose();
   }
 
   void onReady() {

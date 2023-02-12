@@ -19,7 +19,7 @@ class RegisterCard extends GetView<LoginregisterController> {
                   bottomLeft: Radius.circular(Get.width * 0.2))
               //color: Colors.blue
               ),
-          child: (controller.ancho2 > Get.width * 0.75)
+          child: (controller.ancho2 >= Get.width * 0.8)
               ? FormRegister()
               : Container(),
           //)

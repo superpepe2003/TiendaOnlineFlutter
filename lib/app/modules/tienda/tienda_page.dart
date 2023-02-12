@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tienda_online_flutter/app/global_widgets/menu_principal.dart';
-import 'package:tienda_online_flutter/app/modules/tienda/local_widgets/lista_carrito.dart';
 import 'package:tienda_online_flutter/app/modules/tienda/local_widgets/productos_destacados.dart';
 import 'package:tienda_online_flutter/app/modules/tienda/tienda_controller.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'local_widgets/button_cart.dart';
 import 'local_widgets/productos_normales.dart';
 
@@ -25,16 +24,17 @@ class TiendaPage extends GetView<TiendaController> {
 
     return Scaffold(
       appBar: AppBar(
+        brightness: Theme.of(context).appBarTheme.brightness,
         centerTitle: true,
         title: Obx(() => (controller.tienda != null)
             ? Text(
                 '${controller.tienda.nombre}',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Samantha', fontSize: 40),
+                style: Theme.of(context).appBarTheme.textTheme.headline1,
               )
             : Container()),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        iconTheme:
+            IconThemeData(color: Theme.of(context).appBarTheme.foregroundColor),
         actions: [
           Obx(() => (controller.tienda != null && controller.tienda.img != null)
               ? CircleAvatar(
@@ -64,11 +64,7 @@ class TiendaPage extends GetView<TiendaController> {
                 ],
               ),
             ),
-            Obx(() => 
-              (controller.count > 0)
-              ? BottonCart()
-              : Container()
-            )
+            Obx(() => (controller.count > 0) ? BottonCart() : Container())
           ]),
         ),
       ),

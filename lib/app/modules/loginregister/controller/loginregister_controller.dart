@@ -46,7 +46,7 @@ class LoginregisterController extends GetxController {
   void onInit() {
     super.onInit();
     this.ancho = Get.width * 0.8;
-    this.alto = Get.height * 0.5;
+    this.alto = Get.height * 0.6;
     this.index = 0;
   }
 

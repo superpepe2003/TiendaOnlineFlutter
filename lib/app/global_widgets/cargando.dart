@@ -12,7 +12,8 @@ class Cargando extends GetView<LoginregisterController> {
         child: Container(
           width: Get.width * 0.4,
           height: Get.height * 0.4,
-          decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+              color: Theme.of(context).accentColor, shape: BoxShape.circle),
           child: Center(
             child: FlatButton(
               onPressed: () {

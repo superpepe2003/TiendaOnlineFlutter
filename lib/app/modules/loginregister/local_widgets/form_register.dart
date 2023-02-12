@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:tienda_online_flutter/app/modules/loginregister/controller/loginregister_controller.dart';
 import 'package:tienda_online_flutter/app/modules/loginregister/controller/register_controller.dart';
-import 'package:tienda_online_flutter/app/theme/miTema_light.dart';
 
 class FormRegister extends StatelessWidget {
   @override
@@ -13,7 +12,7 @@ class FormRegister extends StatelessWidget {
     return Center(
       child: Container(
           decoration: BoxDecoration(
-              color: Colors.white.withAlpha(240),
+              color: Theme.of(context).canvasColor, //Colors.withAlpha(240),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(Get.width * 0.1),
                 topLeft: Radius.circular(Get.width * 0.1),
@@ -24,33 +23,35 @@ class FormRegister extends StatelessWidget {
                   color: Colors.black38,
                 ),
               ]),
-          child: Column(children: [
-            _crearEmail(),
-            _crearPassword(),
-            _crearNombre(),
-            Expanded(child: Container()),
-            _crearBoton(),
-            GestureDetector(
-              onTap: () {
-                Get.find<LoginregisterController>().index = 1;
-              },
-              child: Container(
-                width: double.infinity,
-                height: Get.height * 0.06,
-                decoration: BoxDecoration(
-                    color: miTema().primaryColor,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(Get.width * 0.1),
-                    )),
-                child: Center(
-                  child: Text(
-                    'Registro',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+          child: Column(
+            children: [
+              _crearEmail(),
+              _crearPassword(),
+              _crearNombre(),
+              Expanded(child: Container()),
+              _crearBoton(),
+              GestureDetector(
+                onTap: () {
+                  Get.find<LoginregisterController>().index = 1;
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: Get.height * 0.06,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(Get.width * 0.1),
+                      )),
+                  child: Center(
+                    child: Text(
+                      'Registro',
+                      style: Theme.of(context).appBarTheme.textTheme.headline1,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ])),
+            ],
+          )),
     );
   }
 }
@@ -65,11 +66,16 @@ class _crearEmail extends GetWidget<RegisterController> {
           builder: (_) => TextFormField(
                 controller: _.controllerEmail,
                 keyboardType: TextInputType.emailAddress,
+                style: Theme.of(context).textTheme.headline5,
                 decoration: InputDecoration(
                   hintText: 'Email',
                   labelText: 'Email',
                   errorText: _.errorEmail,
-                  icon: Icon(Icons.email),
+                  errorStyle: Theme.of(context).textTheme.headline4,
+                  icon: Icon(
+                    Icons.email,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
                 onChanged: _.emailChanged,
                 onFieldSubmitted: (_) => context.nextEditableTextFocus(),
@@ -88,13 +94,21 @@ class _crearPassword extends GetWidget<RegisterController> {
           builder: (_) => TextFormField(
                 controller: _.controllerPassword,
                 obscureText: _.mostrarPassword,
+                style: Theme.of(context).textTheme.headline5,
                 decoration: InputDecoration(
                     hintText: 'Password',
                     labelText: 'Password',
                     errorText: _.errorPassword,
-                    icon: Icon(Icons.security),
+                    errorStyle: Theme.of(context).textTheme.headline4,
+                    icon: Icon(
+                      Icons.security,
+                      color: Theme.of(context).primaryColor,
+                    ),
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.remove_red_eye_sharp),
+                      icon: Icon(
+                        Icons.remove_red_eye_sharp,
+                        color: Theme.of(context).primaryColor,
+                      ),
                       onPressed: () {
                         _.mostrarPassword = !_.mostrarPassword;
                       },
@@ -116,11 +130,16 @@ class _crearNombre extends GetWidget<RegisterController> {
             builder: (_) => TextFormField(
                   controller: _.controllerNombre,
                   keyboardType: TextInputType.text,
+                  style: Theme.of(context).textTheme.headline5,
                   decoration: InputDecoration(
                     hintText: 'Nombre',
                     labelText: 'Nombre',
                     errorText: _.errorNombre,
-                    icon: Icon(Icons.supervised_user_circle),
+                    errorStyle: Theme.of(context).textTheme.headline4,
+                    icon: Icon(
+                      Icons.supervised_user_circle,
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
                   onChanged: _.nombreChanged,
                   onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
@@ -151,12 +170,18 @@ class _crearBoton extends GetWidget<RegisterController> {
                         topRight: Radius.circular(15.0),
                         bottomLeft: Radius.circular(15.0))),
                 elevation: 0.0,
-                onPrimary: miTema().primaryColor,
-                primary: Colors.white,
+                onPrimary: Colors.white,
+                primary: Theme.of(context).primaryColor,
               ),
               onPressed: _.submitFunc,
-              icon: FaIcon(FontAwesomeIcons.registered),
-              label: Text(' Registrarme '),
+              icon: FaIcon(
+                FontAwesomeIcons.registered,
+                color: Theme.of(context).textTheme.button.color,
+              ),
+              label: Text(
+                ' Registrarme ',
+                style: Theme.of(context).textTheme.button,
+              ),
             );
           }),
     );

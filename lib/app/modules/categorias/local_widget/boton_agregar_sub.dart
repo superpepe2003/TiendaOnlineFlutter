@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tienda_online_flutter/app/theme/miTema_light.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
 import 'agregar_subcategoria.dart';
@@ -13,9 +12,9 @@ class BotonAgregarSubCategoria extends StatelessWidget {
       width: _responsive.wp(60),
       height: _responsive.wp(10),
       decoration: BoxDecoration(
-        //color: miTema().primaryColor,
+        //color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: miTema().primaryColor),
+        border: Border.all(color: Theme.of(context).hintColor),
       ),
       child: MaterialButton(
         child: Row(
@@ -23,14 +22,15 @@ class BotonAgregarSubCategoria extends StatelessWidget {
           children: [
             FaIcon(
               FontAwesomeIcons.plus,
-              color: miTema().primaryColor,
+              color: Theme.of(context).hintColor,
             ),
             SizedBox(
               width: _responsive.wp(5),
             ),
             Text(
               'Subcategoría',
-              style: TextStyle(fontSize: 18, color: miTema().primaryColor),
+              style:
+                  TextStyle(fontSize: 18, color: Theme.of(context).hintColor),
             ),
           ],
         ),

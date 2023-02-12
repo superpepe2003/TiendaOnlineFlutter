@@ -22,7 +22,7 @@ class LoginCard extends StatelessWidget {
                   color: Colors.black38,
                 ),
               ]),
-          child: (controller.ancho2 > Get.width * 0.75)
+          child: (controller.ancho2 >= Get.width * 0.8)
               ? FormLogin()
               : Container(),
           //)

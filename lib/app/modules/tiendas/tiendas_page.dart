@@ -11,14 +11,15 @@ class TiendasPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        brightness: Theme.of(context).appBarTheme.brightness,
         centerTitle: true,
         title: Text(
           'Tiendas MP',
-          style: TextStyle(
-              color: Colors.black, fontFamily: 'Samantha', fontSize: 40),
+          style: Theme.of(context).appBarTheme.textTheme.headline1,
         ),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        iconTheme:
+            IconThemeData(color: Theme.of(context).appBarTheme.foregroundColor),
       ),
       drawer: MenuPrincipal(),
       body: Center(
@@ -91,12 +92,15 @@ class _PinterestItem extends StatelessWidget {
                   builder: (_) => Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Container(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              '${controller.tiendas[index].nombre}',
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.caption,
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                '${controller.tiendas[index].nombre}',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.overline,
+                              ),
                             ),
                           ),
                           IconButton(

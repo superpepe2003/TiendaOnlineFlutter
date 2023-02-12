@@ -17,14 +17,18 @@ class MostrarTienda extends GetView<MiTiendaController> {
     Responsive _responsive = Responsive(context);
     return Scaffold(
       appBar: AppBar(
+        brightness: Theme.of(context).appBarTheme.brightness,
         centerTitle: true,
         title: Text(
           'Mi Tienda',
           style: TextStyle(
-              color: Colors.black, fontFamily: 'Samantha', fontSize: 40),
+              color: Theme.of(context).appBarTheme.foregroundColor,
+              fontFamily: 'Samantha',
+              fontSize: 40),
         ),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        iconTheme:
+            IconThemeData(color: Theme.of(context).appBarTheme.foregroundColor),
         actions: [
           Obx(() => (controller.hayTienda)
               ? IconButton(
@@ -59,7 +63,9 @@ class MostrarTienda extends GetView<MiTiendaController> {
                         hintText: 'Nombre Tienda',
                         errorText: controller.errorNombre,
                         labelText: 'Nombre',
-                        icon: Icon(Icons.storefront)),
+                        icon: Icon(Icons.storefront),
+                        labelStyle:
+                            TextStyle(color: Theme.of(context).accentColor)),
                     onChanged: (value) {
                       controller.miTienda.nombre = value;
                       controller.nombre = value;
@@ -73,7 +79,9 @@ class MostrarTienda extends GetView<MiTiendaController> {
                   decoration: InputDecoration(
                       hintText: 'Direccion de la Tienda',
                       labelText: 'Direccion',
-                      icon: Icon(Icons.directions)),
+                      icon: Icon(Icons.directions),
+                      labelStyle:
+                          TextStyle(color: Theme.of(context).accentColor)),
                   onChanged: (value) => controller.miTienda.direccion = value,
                 ),
               ),
@@ -85,8 +93,11 @@ class MostrarTienda extends GetView<MiTiendaController> {
                     decoration: InputDecoration(
                         hintText: 'Telefono de la Tienda',
                         errorText: controller.errorTelefono,
+                        errorStyle: Theme.of(context).textTheme.headline4,
                         labelText: 'Telefono',
-                        icon: Icon(Icons.phone)),
+                        icon: Icon(Icons.phone),
+                        labelStyle:
+                            TextStyle(color: Theme.of(context).accentColor)),
                     onChanged: (value) {
                       controller.miTienda.telefono = value;
                       controller.telefono = value;

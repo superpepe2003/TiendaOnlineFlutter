@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tienda_online_flutter/app/theme/miTema_light.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
 import '../categorias_controller.dart';
@@ -24,7 +23,7 @@ class BotonCategorias extends StatelessWidget {
         // height: _responsive.hp(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: miTema().primaryColor,
+          color: Theme.of(context).hintColor,
         ),
         child: (controller.listaCategoriaPadres().length > 0)
             ? CustomDropDown(controller: controller)

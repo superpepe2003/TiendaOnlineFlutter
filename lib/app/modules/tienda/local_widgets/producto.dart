@@ -12,7 +12,6 @@ class Producto extends GetView<TiendaController> {
 
   @override
   Widget build(BuildContext context) {
-
     Responsive _responsive = Responsive(context);
 
     return InkWell(
@@ -52,7 +51,7 @@ class Producto extends GetView<TiendaController> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
               gradient: LinearGradient(
-                  colors: [Colors.transparent, Colors.black],
+                  colors: [Colors.transparent, Color(0xff555555), Colors.black],
                   begin: Alignment.center,
                   end: Alignment.bottomCenter),
             ),
@@ -66,10 +65,10 @@ class Producto extends GetView<TiendaController> {
                     children: [
                       Text(
                         '${item.nombre}',
-                        style: TextStyle(color: Colors.white, fontSize: 24),
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       Text('${item.subtitulo}',
-                          style: TextStyle(color: Colors.white, fontSize: 16)),
+                          style: Theme.of(context).textTheme.headline2),
                       Center(
                         child: Text('\$${item.precio}',
                             style:
@@ -86,7 +85,7 @@ class Producto extends GetView<TiendaController> {
                     children: [
                       Text(
                         '${item.nombre}',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       Center(
                         child: Text('\$${item.precio}',
@@ -101,15 +100,17 @@ class Producto extends GetView<TiendaController> {
               child: Container(
                 width: _responsive.wp(20),
                 decoration: BoxDecoration(
-                  color: Colors.black45,
-                  borderRadius: BorderRadius.all(Radius.circular(20))
-                ),
-                child: MaterialButton(                  
+                    color: Colors.black45,
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: MaterialButton(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Icon(Icons.add_shopping_cart, color: Colors.white),
-                        Obx(() => Text('${controller.countProductos(item.id)}', style: TextStyle( color: Colors.white),))
+                        Obx(() => Text(
+                              '${controller.countProductos(item.id)}',
+                              style: TextStyle(color: Colors.white),
+                            ))
                       ],
                     ),
                     onPressed: () {
@@ -121,5 +122,3 @@ class Producto extends GetView<TiendaController> {
     );
   }
 }
-
-

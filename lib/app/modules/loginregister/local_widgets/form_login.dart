@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:tienda_online_flutter/app/modules/loginregister/controller/login_controller.dart';
 import 'package:tienda_online_flutter/app/modules/loginregister/controller/loginregister_controller.dart';
-import 'package:tienda_online_flutter/app/theme/miTema_light.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
 class FormLogin extends StatelessWidget {
@@ -14,7 +13,7 @@ class FormLogin extends StatelessWidget {
       child: Container(
           // padding: EdgeInsets.only(bottom: 50),
           decoration: BoxDecoration(
-              color: Colors.white.withAlpha(240),
+              color: Theme.of(context).canvasColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(Get.width * 0.1),
                 topLeft: Radius.circular(Get.width * 0.1),
@@ -35,7 +34,7 @@ class FormLogin extends StatelessWidget {
                 width: double.infinity,
                 height: Get.height * 0.06,
                 decoration: BoxDecoration(
-                  color: miTema().primaryColor,
+                  color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(Get.width * 0.1),
                   ),
@@ -43,7 +42,7 @@ class FormLogin extends StatelessWidget {
                 child: Center(
                   child: Text(
                     'Login',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    style: Theme.of(context).appBarTheme.textTheme.headline1,
                   ),
                 ),
               ),
@@ -68,11 +67,17 @@ class _crearEmail extends GetWidget<LoginController> {
               return TextFormField(
                 initialValue: 'a@a.com',
                 keyboardType: TextInputType.emailAddress,
+                style: Theme.of(context).textTheme.headline5,
                 decoration: InputDecoration(
                     hintText: 'Email',
+                    //hintStyle: Theme.of(context).textTheme.headline3,
                     labelText: 'Email',
                     errorText: _.errorEmail,
-                    icon: Icon(Icons.email)),
+                    errorStyle: Theme.of(context).textTheme.headline4,
+                    icon: Icon(
+                      Icons.email,
+                      color: Theme.of(context).primaryColor,
+                    )),
                 onChanged: _.emailChanged,
               );
             }));
@@ -90,13 +95,21 @@ class _crearPassword extends StatelessWidget {
               return TextFormField(
                 initialValue: '123123',
                 obscureText: _.mostrarPassword,
+                style: Theme.of(context).textTheme.headline5,
                 decoration: InputDecoration(
                     hintText: 'password',
                     labelText: 'password',
                     errorText: _.errorPassword,
-                    icon: Icon(Icons.security),
+                    errorStyle: Theme.of(context).textTheme.headline6,
+                    icon: Icon(
+                      Icons.security,
+                      color: Theme.of(context).primaryColor,
+                    ),
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.remove_red_eye_sharp),
+                      icon: Icon(
+                        Icons.remove_red_eye_sharp,
+                        color: Theme.of(context).primaryColor,
+                      ),
                       onPressed: () {
                         _.mostrarPassword = !_.mostrarPassword;
                       },
@@ -130,12 +143,18 @@ class _crearBoton extends StatelessWidget {
                       topRight: Radius.circular(15.0),
                       bottomLeft: Radius.circular(15.0))),
               elevation: 0.0,
-              onPrimary: miTema().primaryColor,
-              primary: Colors.white,
+              onPrimary: Colors.white,
+              primary: Theme.of(context).primaryColor,
             ),
             onPressed: _.loginFunc,
-            icon: FaIcon(FontAwesomeIcons.registered),
-            label: Text(' Ingresar '),
+            icon: FaIcon(
+              FontAwesomeIcons.registered,
+              color: Theme.of(context).textTheme.button.color,
+            ),
+            label: Text(
+              ' Ingresar ',
+              style: Theme.of(context).textTheme.button,
+            ),
           ));
     });
   }

@@ -14,14 +14,18 @@ class CategoriasPage extends GetView<CategoriasController> {
     final Responsive _responsive = Responsive(context);
     return Scaffold(
       appBar: AppBar(
+        brightness: Theme.of(context).appBarTheme.brightness,
         centerTitle: true,
         title: Text(
           'Tiendas MP',
           style: TextStyle(
-              color: Colors.black, fontFamily: 'Samantha', fontSize: 40),
+              color: Theme.of(context).appBarTheme.foregroundColor,
+              fontFamily: 'Samantha',
+              fontSize: 40),
         ),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        iconTheme:
+            IconThemeData(color: Theme.of(context).appBarTheme.foregroundColor),
       ),
       drawer: MenuPrincipal(),
       body: Container(

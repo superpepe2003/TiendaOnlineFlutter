@@ -22,9 +22,8 @@ class ListSubcategorias extends StatelessWidget {
                   horizontal: _responsive.wp(5), vertical: _responsive.wp(3)),
               child: Text(
                 '${controller.categoriasHijas(controller.currentPadre)[index].nombre}',
-                style: TextStyle(
-                  fontSize: 18,
-                ),
+                style:
+                    TextStyle(fontSize: 18, color: Theme.of(context).hintColor),
               ),
             );
           },

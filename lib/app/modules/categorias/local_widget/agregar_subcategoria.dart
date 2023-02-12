@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tienda_online_flutter/app/modules/categorias/categorias_controller.dart';
-import 'package:tienda_online_flutter/app/theme/miTema_light.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
 class AgregarSubCategoria extends GetView<CategoriasController> {
@@ -24,8 +23,7 @@ class AgregarSubCategoria extends GetView<CategoriasController> {
                 ? 'Agregar Categoria Principal'
                 : 'Agregar SubCategoria a ${controller.categoriaPadre(controller.currentPadre).nombre}',
             style: TextStyle(
-              fontSize: 18,
-            ),
+                fontSize: 18, color: Theme.of(context).primaryColorDark),
           ),
           SizedBox(
             height: _resp.wp(10),
@@ -55,13 +53,15 @@ class AgregarSubCategoria extends GetView<CategoriasController> {
           ),
           Expanded(child: SizedBox()),
           MaterialButton(
-              color: miTema().primaryColor,
+              color: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20))),
               child: Text(
-                  (isCategoria) ? 'Grabar Categoria' : 'Grabar SubCategoria'),
+                (isCategoria) ? 'Grabar Categoria' : 'Grabar SubCategoria',
+                style: TextStyle(color: Theme.of(context).primaryColorLight),
+              ),
               onPressed: () async {
                 controller.agregarCategoria(isCategoria);
                 Get.back();

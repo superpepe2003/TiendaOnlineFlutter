@@ -1,38 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tienda_online_flutter/app/data/model/menu_model.dart';
 import 'package:tienda_online_flutter/app/data/service/user_service.dart';
 import 'package:tienda_online_flutter/app/global_widgets/circulo.dart';
+import 'package:tienda_online_flutter/app/routes/app_routes.dart';
+import 'package:tienda_online_flutter/app/theme/temas.controller.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
 class MenuPrincipal extends StatelessWidget {
   final menu = Get.find<UserService>().menu;
   @override
   Widget build(BuildContext context) {
+    List<MenuModel> menu = Get.find<UserService>().menu;
     return Drawer(
         elevation: 0,
         child: Column(
           children: [
             _Header(),
-            ListView.builder(
-                itemCount: menu.length,
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemBuilder: (_, item) {
-                  return (menu[item].icon == '0')
-                      ? Divider()
-                      : ListTile(
-                          leading: Icon(
-                            IconData(int.parse(menu[item].icon),
-                                fontFamily: 'MaterialIcons'),
-                            color: Color(0xffB11780),
-                          ),
-                          title: Text('${menu[item].name}'),
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, '${menu[item].redirectTo}');
-                          },
-                        );
-                })
+            Expanded(
+              child: ListView.builder(
+                  itemCount: menu.length,
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemBuilder: (_, item) {
+                    return (menu[item].icon == '0')
+                        ? Divider()
+                        : ListTile(
+                            leading: Icon(
+                              IconData(int.parse(menu[item].icon),
+                                  fontFamily: 'MaterialIcons'),
+                              color: Theme.of(context).hintColor,
+                            ),
+                            title: Text(
+                              '${menu[item].name}',
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                            onTap: () {
+                              //Navigator.pushNamed( context, '${menu[item].redirectTo}');
+                              Get.offAllNamed('${menu[item].redirectTo}');
+                            },
+                          );
+                  }),
+            ),
+            SafeArea(
+                bottom: true,
+                top: false,
+                left: false,
+                right: false,
+                child: GetX<TemasController>(
+                  init: Get.find<TemasController>(),
+                  builder: (_) {
+                    return ListTile(
+                      leading: Icon(Icons.add_to_home_screen,
+                          color: Theme.of(context).hintColor),
+                      title: Text('Modo Oscuro',
+                          style: Theme.of(context).textTheme.caption),
+                      trailing: Switch.adaptive(
+                        //value: appTheme.customTheme,
+                        value: _.temaOscuro,
+                        activeColor: Theme.of(context).hintColor,
+                        onChanged: (value) {
+                          Get.changeThemeMode(Get.isDarkMode
+                              ? ThemeMode.light
+                              : ThemeMode.dark);
+
+                          _.temaOscuro = !Get.isDarkMode;
+                        },
+                      ),
+                    );
+                  },
+                )),
           ],
         ));
   }
@@ -49,8 +86,10 @@ class _Header extends StatelessWidget {
           top: responsive.wp(-25),
           left: responsive.wp(-20),
           child: Circulo(colors: [
-            Color(0xffFDD4A4),
-            Color(0xffB89369),
+            Theme.of(context).primaryColor,
+            Theme.of(context).primaryColor,
+            Theme.of(context).primaryColor,
+            Theme.of(context).highlightColor,
           ], size: responsive.wp(60)),
         ),
         Positioned(
@@ -59,9 +98,9 @@ class _Header extends StatelessWidget {
           child: Circulo(
             size: responsive.wp(80),
             colors: [
-              Color(0xffefa6da),
-              Color(0xffe96dc4),
-              Color(0xffe2178a),
+              Theme.of(context).primaryColor,
+              Theme.of(context).hintColor,
+              Theme.of(context).hintColor,
             ],
           ),
         ),
@@ -131,7 +170,8 @@ class _Header extends StatelessWidget {
                               fit: BoxFit.cover,
                             )),
                         onTap: () {
-                          Navigator.pushNamed(context, 'perfil');
+                          //Navigator.pushNamed(context, 'perfil');
+                          Get.toNamed(AppRoutes.PERFIL);
                         },
                       ),
                     ),

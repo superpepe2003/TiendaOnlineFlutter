@@ -7,7 +7,7 @@ import 'package:tienda_online_flutter/app/utils/responsive.dart';
 class ProductoCart extends GetView<TiendaController> {
   final ProductoCartModel item;
   final int index;
-  const ProductoCart({Key key, this.item, this.index }) : super(key: key);
+  const ProductoCart({Key key, this.item, this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,10 @@ class ProductoCart extends GetView<TiendaController> {
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.black38,
+                          color: Theme.of(context).primaryColorDark,
                           offset: Offset(2.0, 2.0),
-                          blurRadius: 5.0,
-                          spreadRadius: 1.0)
+                          blurRadius: 6.0,
+                          spreadRadius: 0.5)
                     ]),
               ),
               ClipRRect(
@@ -63,8 +63,7 @@ class ProductoCart extends GetView<TiendaController> {
                     ),
                     Center(
                       child: Text('\$${item.precio}',
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 14)),
+                          style: TextStyle(color: Colors.white, fontSize: 14)),
                     ),
                   ],
                 ),
@@ -87,9 +86,10 @@ class ProductoCart extends GetView<TiendaController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          color: Colors.orange,
+                          color: Theme.of(context).primaryColor,
                           child: IconButton(
-                            icon: Icon(Icons.horizontal_rule, color: Colors.black),
+                            icon: Icon(Icons.horizontal_rule,
+                                color: Theme.of(context).accentColor),
                             onPressed: () {
                               controller.agregarProductosCart(item, i: -1);
                             },
@@ -99,13 +99,14 @@ class ProductoCart extends GetView<TiendaController> {
                               margin: EdgeInsets.all(_responsive.wp(4)),
                               child: Text(
                                 '${controller.productosCart[index].cantidad}',
-                                style: TextStyle(color: Colors.black),
+                                style: Theme.of(context).textTheme.subtitle1,
                               ),
                             )),
                         Container(
-                          color: Colors.orange,
+                          color: Theme.of(context).primaryColor,
                           child: IconButton(
-                            icon: Icon(Icons.add, color: Colors.black),
+                            icon: Icon(Icons.add,
+                                color: Theme.of(context).accentColor),
                             onPressed: () {
                               controller.agregarProductosCart(item);
                             },
@@ -118,12 +119,12 @@ class ProductoCart extends GetView<TiendaController> {
               ),
               Expanded(
                 child: Obx(() => Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    '\$${(controller.productosCart[index].cantidad * item.precio).toString()}',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                )),
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        '\$${(controller.productosCart[index].cantidad * item.precio).toString()}',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                    )),
               )
             ],
           ),

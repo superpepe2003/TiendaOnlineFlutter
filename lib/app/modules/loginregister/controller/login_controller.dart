@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tienda_online_flutter/app/data/model/login_model.dart';
 import 'package:tienda_online_flutter/app/data/repository/auth_repository.dart';
 import 'package:tienda_online_flutter/app/data/service/user_service.dart';
-import 'package:tienda_online_flutter/app/modules/home/home_pages.dart';
 import 'package:tienda_online_flutter/app/modules/loginregister/controller/loginregister_controller.dart';
 import 'package:tienda_online_flutter/app/modules/root/root.dart';
-import 'package:get/route_manager.dart';
 
 class LoginController extends GetxController {
   final AuthRepository _repository = Get.find<AuthRepository>();
@@ -84,23 +83,24 @@ class LoginController extends GetxController {
 
   verificaToken() async {
     String token = await box.read('token');
+    Get.find<LoginregisterController>().isCargando = true;
     if (token != null) {
-      _isLoading.value = true;
-      Get.find<UserService>().cargando = true;
       try {
         LoginModel loginModel = await _repository.verificaToken(token);
         await box.write('token', loginModel.accessToken);
         controller.user = loginModel.user;
-      } catch (e) {}
+        controller.menu = loginModel.menu;
 
-      _isLoading.value = false;
-      Get.find<UserService>().cargando = false;
+        Get.off(() => RootPage());
+      } catch (e) {
+        print(e);
+      }
     }
+    Get.find<LoginregisterController>().isCargando = false;
   }
 
   void Function() login() {
     return () async {
-      _isLoading.value = true;
       Get.find<LoginregisterController>().isCargando = true;
 
       try {
@@ -108,6 +108,7 @@ class LoginController extends GetxController {
             await _repository.login(this._email.value, this._password.value);
         await box.write('token', loginModel.accessToken);
         controller.user = loginModel.user;
+        controller.menu = loginModel.menu;
         Future.delayed(Duration.zero, () {
           Get.off(() => RootPage());
         });
@@ -116,7 +117,6 @@ class LoginController extends GetxController {
             snackPosition: SnackPosition.BOTTOM);
       }
 
-      _isLoading.value = false;
       Get.find<LoginregisterController>().isCargando = false;
     };
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tienda_online_flutter/app/theme/miTema_light.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
 import 'agregar_subcategoria.dart';
@@ -12,11 +11,12 @@ class BotonAgregarCategoria extends StatelessWidget {
     return Container(
       height: _responsive.wp(10),
       decoration: BoxDecoration(
-        border: Border.all(color: miTema().primaryColor),
+        border: Border.all(color: Theme.of(context).hintColor),
         shape: BoxShape.circle,
       ),
       child: MaterialButton(
-        child: FaIcon(FontAwesomeIcons.plus, color: miTema().primaryColor),
+        child:
+            FaIcon(FontAwesomeIcons.plus, color: Theme.of(context).hintColor),
         onPressed: () {
           showDialog(
               context: context,

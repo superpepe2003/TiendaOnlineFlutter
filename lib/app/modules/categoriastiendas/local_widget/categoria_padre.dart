@@ -16,30 +16,42 @@ class CategoriaPadre extends GetView<CategoriastiendasController> {
       onTap: () {
         controller.currentPadre = controller.categoriasPadres[index].id;
       },
-      child: Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: _resp.wp(2), vertical: _resp.wp(2)),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Color(0xFFE6952C),
-            Color(0xFFFCA129),
-            Color(0xFFECC38D),
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Center(
-          child: Text(
-            '${controller.categoriasPadres[index].nombre}',
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize:
-                    (controller.categoriasPadres[index].nombre.length > 14)
-                        ? 28
-                        : 30,
-                fontFamily: 'Samantha'),
+      child: Transform(
+        transform: Matrix4.identity()..rotateZ(0.2),
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          elevation: 10,
+          color: Theme.of(context).primaryColorLight,
+          child: Container(
+            //margin: EdgeInsets.symmetric(
+            //    horizontal: _resp.wp(2), vertical: _resp.wp(2)),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+                // Color(0xFFE6952C),
+                // Color(0xFFFCA129),
+                // Color(0xFFECC38D),
+                Theme.of(context).primaryColor,
+                //Theme.of(context).hintColor,
+                Theme.of(context).accentColor
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Center(
+              child: Text(
+                '${controller.categoriasPadres[index].nombre}',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize:
+                        (controller.categoriasPadres[index].nombre.length > 14)
+                            ? 28
+                            : 30,
+                    fontFamily: 'Samantha'),
+              ),
+            ),
           ),
         ),
       ),

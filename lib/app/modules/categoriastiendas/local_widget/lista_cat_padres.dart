@@ -19,7 +19,9 @@ class ListaCatPadres extends GetView<CategoriastiendasController> {
               controller: _pageController,
               pageSnapping: false,
               itemCount: controller.categoriasPadres.length,
-              itemBuilder: (context, index) => CategoriaPadre(index: index)),
+              itemBuilder: (context, index) => Container(
+                  margin: EdgeInsets.only(bottom: 15),
+                  child: CategoriaPadre(index: index))),
         ));
   }
 }

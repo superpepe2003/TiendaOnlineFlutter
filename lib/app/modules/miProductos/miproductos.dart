@@ -12,17 +12,22 @@ class MiProductoPage extends GetView<MiProductosController> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          brightness: Theme.of(context).appBarTheme.brightness,
           centerTitle: true,
           title: Text(
             'Mis Productos',
             style: TextStyle(
-                color: Colors.black, fontFamily: 'Samantha', fontSize: 40),
+                color: Theme.of(context).appBarTheme.foregroundColor,
+                fontFamily: 'Samantha',
+                fontSize: 40),
           ),
-          backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+          iconTheme: IconThemeData(
+              color: Theme.of(context).appBarTheme.backgroundColor),
           actions: [
             IconButton(
-              icon: FaIcon(FontAwesomeIcons.plus),
+              icon: FaIcon(FontAwesomeIcons.plus,
+                  color: Theme.of(context).appBarTheme.foregroundColor),
               onPressed: () {
                 showDialog(
                     context: context,

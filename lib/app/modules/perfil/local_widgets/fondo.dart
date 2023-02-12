@@ -13,8 +13,11 @@ class Fondo extends StatelessWidget {
           left: responsive.wp(-10),
           child: Circulo(
             colors: [
-              Color(0xffFDD4A4),
-              Color(0xffB89369),
+              Color(0xffefa6da),
+              //Color(0xffe96dc4),
+              Theme.of(context).primaryColor,
+              //Theme.of(context).hintColor,
+              Theme.of(context).accentColor
             ],
             size: responsive.wp(60),
           ),
@@ -24,9 +27,10 @@ class Fondo extends StatelessWidget {
           right: responsive.wp(-20),
           child: Circulo(
             colors: [
-              Color(0xffefa6da),
-              Color(0xffe96dc4),
-              Color(0xffe2178a),
+              Color(0xffFDD4A4),
+              Theme.of(context).highlightColor,
+              Theme.of(context).primaryColor,
+              Theme.of(context).primaryColor,
             ],
             size: responsive.wp(80),
           ),

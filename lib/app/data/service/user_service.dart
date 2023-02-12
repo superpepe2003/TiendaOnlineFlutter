@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -17,9 +15,9 @@ class UserService extends GetxController {
   UsuarioModel get user => _user.value;
   bool get cargando => _cargando.value;
 
-  set user( UsuarioModel user ) =>_user.value = user;
+  set user(UsuarioModel user) => _user.value = user;
 
-  set cargando( bool value) => _cargando.value = value;
+  set cargando(bool value) => _cargando.value = value;
 
   void singOut() {
     box.remove('token');
@@ -28,11 +26,10 @@ class UserService extends GetxController {
   }
 
   @override
-  void onInit() async{
+  void onInit() async {
     String jsonString = await rootBundle.loadString('assets/menu.json');
     this.menu = menuFromJson(jsonString);
 
     super.onInit();
   }
-  
 }

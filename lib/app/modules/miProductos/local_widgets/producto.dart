@@ -39,41 +39,51 @@ class Producto extends GetView<MiProductosController> {
                       );
                     }).then((value) => controller.limpiarCampos());
               },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Text(
-                      produ.nombre,
-                      style: TextStyle(fontSize: 16),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      // padding: EdgeInsets.symmetric(vertical: 20),
+                      child: Text(
+                        produ.nombre,
+                        style: Theme.of(context).textTheme.headline2,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  (produ.subtitulo != null)
-                      ? Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                          width: _responsive.wp(50),
-                          child: Text(
-                            produ.subtitulo,
-                            style: TextStyle(fontSize: 12),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        )
-                      : Container(),
-                  Expanded(child: Container()),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      '\$ ${produ.precio.toString()}',
-                      textAlign: TextAlign.start,
+                    Divider(
+                      color: Colors.black,
+                      height: _responsive.hp(1),
                     ),
-                  ),
-                ],
+                    (produ.subtitulo != null)
+                        ? Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 5),
+                            width: _responsive.wp(50),
+                            child: Text(
+                              produ.subtitulo,
+                              style: Theme.of(context).textTheme.headline5,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )
+                        : Container(),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Text(
+                          '\$ ${produ.precio.toString()}',
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

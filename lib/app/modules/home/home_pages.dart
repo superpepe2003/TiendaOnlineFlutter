@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tienda_online_flutter/app/global_widgets/menu_principal.dart';
 import 'package:tienda_online_flutter/app/modules/home/local_widget/swiper_principal.dart';
+import 'package:tienda_online_flutter/app/theme/temas.controller.dart';
 
 import 'local_widget/swiper_horizontal.dart';
 
@@ -10,13 +12,14 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        brightness: Theme.of(context).appBarTheme.brightness,
         title: Text(
           'Tiendas MP',
-          style: TextStyle(
-              color: Colors.black, fontFamily: 'Samantha', fontSize: 40),
+          style: Theme.of(context).appBarTheme.textTheme.headline1,
         ),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        iconTheme:
+            IconThemeData(color: Theme.of(context).appBarTheme.foregroundColor),
       ),
       drawer: MenuPrincipal(),
       body: PinterestGrid(),

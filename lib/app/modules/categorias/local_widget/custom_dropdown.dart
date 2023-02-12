@@ -31,13 +31,12 @@ class CustomDropDown extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Obx(() => Text(
-                  '${controller.categoriaPadre(controller.currentPadre).nombre}',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                )),
+                '${controller.categoriaPadre(controller.currentPadre).nombre}',
+                style: Theme.of(context).textTheme.button)),
             Spacer(),
             Icon(
               Icons.arrow_drop_down_outlined,
-              color: Colors.white,
+              color: Theme.of(context).accentColor,
               size: 28,
             )
           ],

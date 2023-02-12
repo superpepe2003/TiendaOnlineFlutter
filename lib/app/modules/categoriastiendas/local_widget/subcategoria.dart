@@ -23,15 +23,10 @@ class SubCategoria extends GetView<CategoriastiendasController> {
         width: controller.itemSize,
         height: controller.itemSize,
         decoration: BoxDecoration(
-            // gradient: LinearGradient(colors: [
-            //   Color(0xFFE6952C),
-            //   Color(0xFFFCA129),
-            //   Color(0xFFECC38D),
-            //], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-            color: Colors.white,
+            color: Theme.of(context).canvasColor,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: Color(0xffE6952C),
+              color: Theme.of(context).accentColor,
             ),
             boxShadow: [
               BoxShadow(
@@ -44,8 +39,7 @@ class SubCategoria extends GetView<CategoriastiendasController> {
           child: Text(
             '${controller.categoriasHijas(controller.currentPadre)[index].nombre}',
             textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 40, fontFamily: 'Samantha', color: Color(0xffE6952C)),
+            style: Theme.of(context).textTheme.bodyText1,
           ),
         ),
       ),

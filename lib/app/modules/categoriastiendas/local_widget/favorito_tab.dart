@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:tienda_online_flutter/app/global_widgets/menu_principal.dart';
 import 'package:tienda_online_flutter/app/modules/categoriastiendas/categoriastiendas_controller.dart';
 import 'package:tienda_online_flutter/app/routes/app_routes.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
@@ -81,7 +80,7 @@ class _PinterestItem extends StatelessWidget {
                             child: Text(
                               '${controller.favoritos[index].nombre}',
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.caption,
+                              style: Theme.of(context).textTheme.overline,
                             ),
                           ),
                           IconButton(
@@ -94,7 +93,7 @@ class _PinterestItem extends StatelessWidget {
                                     controller.favoritos[index].id);
                               })
                         ],
-                      )),                
+                      )),
             ]),
           )),
     );

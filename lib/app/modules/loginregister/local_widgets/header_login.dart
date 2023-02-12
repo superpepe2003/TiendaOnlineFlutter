@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tienda_online_flutter/app/theme/miTema_light.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
 class HeaderLogin extends StatelessWidget {
@@ -10,7 +9,7 @@ class HeaderLogin extends StatelessWidget {
       height: responsive.hp(35),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: miTema().primaryColor,
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(100),
             bottomRight: Radius.circular(100)),

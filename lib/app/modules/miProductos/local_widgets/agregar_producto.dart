@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tienda_online_flutter/app/modules/miProductos/miproductos_controller.dart';
-import 'package:tienda_online_flutter/app/theme/miTema_light.dart';
 import 'package:tienda_online_flutter/app/utils/responsive.dart';
 
 class AgregarProducto extends GetView<MiProductosController> {
@@ -19,14 +18,14 @@ class AgregarProducto extends GetView<MiProductosController> {
           children: [
             Container(
               height: _resp.hp(5),
-              color: miTema().primaryColor,
+              color: Theme.of(context).primaryColor,
               child: Center(
                 child: Text(
                   (controller.isModificar)
                       ? 'Modificar Producto'
                       : 'Agregar Producto',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).primaryColorLight,
                   ),
                 ),
               ),
@@ -38,7 +37,10 @@ class AgregarProducto extends GetView<MiProductosController> {
                 decoration: InputDecoration(
                     hintText: 'Nombre',
                     labelText: 'Nombre del Producto',
-                    icon: Icon(Icons.add_shopping_cart)),
+                    icon: Icon(Icons.add_shopping_cart),
+                    hintStyle: TextStyle(color: Theme.of(context).accentColor),
+                    labelStyle:
+                        TextStyle(color: Theme.of(context).accentColor)),
                 onChanged: (value) => controller.nombre = value,
               ),
             ),
@@ -81,12 +83,14 @@ class AgregarProducto extends GetView<MiProductosController> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Obx(() => CupertinoSwitch(
+                      activeColor: Theme.of(context).primaryColor,
                       value: controller.destacado,
                       onChanged: (value) {
                         controller.destacado = value;
                       },
                     )),
                 Obx(() => CupertinoSwitch(
+                      activeColor: Theme.of(context).primaryColor,
                       value: controller.disponible,
                       onChanged: (value) {
                         controller.disponible = value;
@@ -99,7 +103,7 @@ class AgregarProducto extends GetView<MiProductosController> {
               height: _resp.hp(5),
             ),
             MaterialButton(
-                color: miTema().primaryColor,
+                color: Theme.of(context).primaryColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),

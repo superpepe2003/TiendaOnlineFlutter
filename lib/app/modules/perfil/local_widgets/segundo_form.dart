@@ -18,9 +18,12 @@ class SegundoForm extends GetView<PerfilController> {
         children: [
           Row(
             children: [
-              FaIcon(
-                FontAwesomeIcons.calendar,
-                color: Colors.black45,
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: FaIcon(
+                  FontAwesomeIcons.calendar,
+                  color: Theme.of(context).primaryColorDark,
+                ),
               ),
               FlatButton(
                 onPressed: () {
@@ -33,7 +36,8 @@ class SegundoForm extends GetView<PerfilController> {
                   () => (controller.fechaNac == null)
                       ? Text(
                           'Seleccione una fecha de cumpleaños',
-                          style: TextStyle(color: Colors.black54),
+                          style:
+                              TextStyle(color: Theme.of(context).accentColor),
                         )
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +47,7 @@ class SegundoForm extends GetView<PerfilController> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12,
-                                    color: Colors.black54),
+                                    color: Theme.of(context).accentColor),
                               ),
                               Text(
                                 //'${controller.fechaNac.day}/${controller.fechaNac.month}/${controller.fechaNac.year} ',

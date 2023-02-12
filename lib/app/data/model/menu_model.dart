@@ -1,31 +1,31 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+List<MenuModel> menuFromJson(String str) =>
+    List<MenuModel>.from(json.decode(str).map((x) => MenuModel.fromJson(x)));
 
-List<MenuModel> menuFromJson(String str) => List<MenuModel>.from(json.decode(str).map((x) => MenuModel.fromJson(x)));
-
-String menuToJson(List<MenuModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String menuToJson(List<MenuModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class MenuModel {
-    MenuModel({
-        this.icon,
-        this.name,
-        this.redirectTo,
-    });
+  MenuModel({
+    this.icon,
+    this.name,
+    this.redirectTo,
+  });
 
-    String icon;
-    String name;
-    String redirectTo;
+  String icon;
+  String name;
+  String redirectTo;
 
-    factory MenuModel.fromJson(Map<String, dynamic> json) => MenuModel(
+  factory MenuModel.fromJson(Map<String, dynamic> json) => MenuModel(
         icon: json["icon"],
-        name: json["name"],
-        redirectTo: json["redirectTo"],
-    );
+        name: json["name"] ?? '',
+        redirectTo: json["redirectTo"] ?? '',
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "icon": icon,
         "name": name,
         "redirectTo": redirectTo,
-    };
+      };
 }
